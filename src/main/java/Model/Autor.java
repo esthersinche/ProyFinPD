@@ -44,4 +44,5 @@ public class Autor {
     public void setIdNac(String idNac) {
         this.idNac = idNac;
     }
+    
 }
