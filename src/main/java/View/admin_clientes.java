@@ -81,17 +81,13 @@ public class admin_clientes extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(800, 471));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel11.setText("NOMBRE:");
-        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, -1, -1));
 
         jTextField2.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 143, 34));
 
         txt1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        add(txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 143, 34));
 
         AgregarCliente.setBackground(new java.awt.Color(255, 204, 153));
         AgregarCliente.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
@@ -103,42 +99,32 @@ public class admin_clientes extends javax.swing.JPanel {
                 AgregarClienteActionPerformed(evt);
             }
         });
-        add(AgregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 180, 70));
 
         jLabel12.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel12.setText("ID CLIENTE:");
-        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 36)); // NOI18N
         jLabel13.setText("Agregar clientes");
-        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel14.setText("APELLIDO:");
-        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel15.setText("DNI:");
-        add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel16.setText("DIRECCION:");
-        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel17.setText("FECHA HOY:");
-        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, -1, -1));
 
         jLabel19.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel19.setText("CELULAR:");
-        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, -1, -1));
 
         jLabel20.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel20.setText("ID NAC:");
-        add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, -1, -1));
 
         jTextField3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 143, 34));
 
         jTextField4.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
@@ -146,10 +132,8 @@ public class admin_clientes extends javax.swing.JPanel {
                 jTextField4ActionPerformed(evt);
             }
         });
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, 143, 34));
 
         jTextField5.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 143, 34));
 
         jTextField6.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
@@ -157,13 +141,103 @@ public class admin_clientes extends javax.swing.JPanel {
                 jTextField6ActionPerformed(evt);
             }
         });
-        add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 143, 34));
 
         jTextField7.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 143, 34));
 
         jTextField8.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, 143, 34));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(180, 180, 180)
+                .addComponent(jLabel13))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(jLabel12)
+                .addGap(8, 8, 8)
+                .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(180, 180, 180)
+                .addComponent(jLabel11)
+                .addGap(6, 6, 6)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addComponent(jLabel14)
+                .addGap(11, 11, 11)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel15))
+                    .addComponent(jLabel16))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addComponent(AgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(170, 170, 170)
+                .addComponent(jLabel19)
+                .addGap(8, 8, 8)
+                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addComponent(jLabel17)
+                .addGap(11, 11, 11)
+                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(jLabel20)
+                .addGap(10, 10, 10)
+                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel13)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel16))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(AgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19)
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel20)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
