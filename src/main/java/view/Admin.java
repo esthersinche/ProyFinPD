@@ -50,6 +50,11 @@ public class Admin extends javax.swing.JFrame {
         BTNadmincli.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadmincli.setText("Clientes");
         BTNadmincli.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 3, 4, 3, new java.awt.Color(176, 111, 211)));
+        BTNadmincli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadmincliActionPerformed(evt);
+            }
+        });
 
         BTNadminlib.setBackground(new java.awt.Color(187, 142, 211));
         BTNadminlib.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -148,6 +153,10 @@ public class Admin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BTNadmincliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadmincliActionPerformed
+        
+    }//GEN-LAST:event_BTNadmincliActionPerformed
 
     /**
      * @param args the command line arguments

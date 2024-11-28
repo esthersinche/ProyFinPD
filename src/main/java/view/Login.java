@@ -4,6 +4,11 @@
  */
 package View;
 
+import Controler.CUsuario;
+import Model.Usuario;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PERSONAL
@@ -33,9 +38,9 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtuser = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        txtpass = new javax.swing.JPasswordField();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -73,13 +78,9 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Password: ");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(51, 51, 51));
-        jTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.darkGray));
-
-        jTextField2.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(51, 51, 51));
-        jTextField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.darkGray));
+        txtuser.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
+        txtuser.setForeground(new java.awt.Color(51, 51, 51));
+        txtuser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.darkGray));
 
         jButton1.setBackground(new java.awt.Color(180, 122, 211));
         jButton1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
@@ -92,6 +93,9 @@ public class Login extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        txtpass.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
+        txtpass.setMinimumSize(new java.awt.Dimension(64, 26));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -110,8 +114,8 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1)))
+                            .addComponent(txtuser)
+                            .addComponent(txtpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -126,14 +130,14 @@ public class Login extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                    .addComponent(txtuser, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(59, 59, 59)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -174,7 +178,33 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        // Obtener las credenciales ingresadas
+        String usuario = txtuser.getText();
+        String contrasena = String.valueOf(txtpass.getPassword());
+
+        // Validar acceso usando CUsuario
+        CUsuario cu = new CUsuario();
+        try {
+            Usuario usuarioAutenticado = cu.autenticarUsuario(usuario, contrasena);
+
+            if (usuarioAutenticado != null) {
+                // Determina qué ventana mostrar según el rango del usuario autenticado
+                String rango = usuarioAutenticado.getRango();
+                if ("admin".equalsIgnoreCase(rango)) {
+                    Admin ad = new Admin();
+                    ad.setVisible(true);
+                } else if ("caja".equalsIgnoreCase(rango)) {
+                    Cajero ca = new Cajero();
+                    ca.setVisible(true);
+                }
+                this.dispose(); // Cierra la ventana actual de login
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al autenticar el usuario: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -221,7 +251,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPasswordField txtpass;
+    private javax.swing.JTextField txtuser;
     // End of variables declaration//GEN-END:variables
 }
