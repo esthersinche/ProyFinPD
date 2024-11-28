@@ -1,7 +1,7 @@
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Genero.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Controler\CVentas.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\VentaDAO.java
-C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\view\Cajero.java
+C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\View\Cajero.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\AutorDAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Empleado.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Sueldo.java
@@ -12,13 +12,13 @@ C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\SueldoDAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Controler\CUsuario.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Controler\CGraficos.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Inventario.java
-C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\view\Admin.java
+C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\View\Admin.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Usuario.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Controler\CInventario.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\ModalidadDAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\DetVenta.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\ClienteDAO.java
-C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\view\Login.java
+C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\View\Login.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\EmpleadoDAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\PuestoDAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Modalidad.java
@@ -35,6 +35,7 @@ C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\util\SQLConexion.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Venta.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\InventarioDAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\util\TestConexion.java
+C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\View\admin_clientes.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Libro.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\LibroDAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Editorial.java
