@@ -51,6 +51,11 @@ public class Cajero extends javax.swing.JFrame {
         BTNcajerocli.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNcajerocli.setText("Clientes");
         BTNcajerocli.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 3, 4, 3, new java.awt.Color(176, 111, 211)));
+        BTNcajerocli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNcajerocliActionPerformed(evt);
+            }
+        });
 
         BTNcajeroconsul.setBackground(new java.awt.Color(187, 142, 211));
         BTNcajeroconsul.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -149,6 +154,10 @@ public class Cajero extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BTNcajerocliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNcajerocliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BTNcajerocliActionPerformed
 
     /**
      * @param args the command line arguments
