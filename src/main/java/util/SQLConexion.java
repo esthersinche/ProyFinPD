@@ -12,9 +12,9 @@ public class SQLConexion {
     private static SQLConexion instancia;
     private Connection conectar;
 
-    private String usuario = "sa";
+    private String usuario = "sa1"; //default: sa, laura: sa1
     private String contrasenia = "1234";
-    private String bd = "BDLIBRERIA";
+    private String bd = "PD2024PROY";//default:BDLIBRERIA, laura:PD2024PROY
     private String ip = "localhost";
     private String puerto = "1433";
     private String cadena = "jdbc:sqlserver://" + ip + ":" + puerto + ";databaseName=" + bd + ";encrypt=true;trustServerCertificate=true";

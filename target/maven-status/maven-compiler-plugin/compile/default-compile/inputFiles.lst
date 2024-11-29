@@ -25,6 +25,7 @@ C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Modalidad.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Interface\ICrud_DAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Cliente.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\NacionalidadDAO.java
+C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\View\Adminpanelusuario.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\EditorialDAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Nacionalidad.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\DetVentaDAO.java
@@ -33,6 +34,7 @@ C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\IdiomaDAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\UsuarioDAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\util\SQLConexion.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\Model\Venta.java
+C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\View\adminpanelusuarioregistrar.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\DAO\InventarioDAO.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\util\TestConexion.java
 C:\Users\PERSONAL\Documents\GitHub\ProyFinPD\src\main\java\View\admin_clientes.java

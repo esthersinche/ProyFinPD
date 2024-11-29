@@ -48,7 +48,7 @@ public class Admin extends javax.swing.JFrame {
 
         BTNadmincli.setBackground(new java.awt.Color(187, 142, 211));
         BTNadmincli.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        BTNadmincli.setText("Clientes");
+        BTNadmincli.setText("Usuario");
         BTNadmincli.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 3, 4, 3, new java.awt.Color(176, 111, 211)));
 
         BTNadminlib.setBackground(new java.awt.Color(187, 142, 211));

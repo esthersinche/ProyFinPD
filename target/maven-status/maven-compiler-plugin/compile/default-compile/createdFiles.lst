@@ -1,4 +1,5 @@
 Controler\CCliente.class
+view\Login$2.class
 view\Admin.class
 DAO\PuestoDAO.class
 DAO\LibroDAO.class
@@ -30,6 +31,7 @@ DAO\UsuarioDAO.class
 Model\Cliente.class
 Controler\CGraficos.class
 Controler\CVentas.class
+view\Adminpanelusuario.class
 Interface\ICrud_DAO.class
 DAO\AutorDAO.class
 DAO\EditorialDAO.class
@@ -42,6 +44,7 @@ util\SQLConexion.class
 Controler\CInventario.class
 Model\Sueldo.class
 view\Login.class
+view\adminpanelusuarioregistrar.class
 Model\Nacionalidad.class
 DAO\InventarioDAO.class
 Model\Editorial.class
