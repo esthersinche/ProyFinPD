@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
+
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -10,11 +10,25 @@ package View;
  */
 public class Cajero extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Cajero
-     */
+    private CardLayout cardLayout;  // Crear CardLayout
+    private caja_Consultas consul = new caja_Consultas();
+    private caja_clientes cli = new caja_clientes();
+    private caja_resumenVentas resum = new caja_resumenVentas();
+    private caja_ventas ven = new caja_ventas();
+
     public Cajero() {
         initComponents();
+        cardLayout = new CardLayout();  // Inicializar CardLayout
+        pnlCajero.setLayout(cardLayout);  // Establecer el CardLayout en pnlCajero
+
+        // Agregar los paneles con nombres como "tarjetas"
+        pnlCajero.add(ven, "Ventas");
+        pnlCajero.add(resum, "ResumenVentas");
+        pnlCajero.add(consul, "Consultas");
+        pnlCajero.add(cli, "Clientes");
+        
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     }
 
     /**
@@ -34,7 +48,7 @@ public class Cajero extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        viewpanelcajero = new javax.swing.JPanel();
+        pnlCajero = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +60,11 @@ public class Cajero extends javax.swing.JFrame {
         BTNcajerovend.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNcajerovend.setText("Vender");
         BTNcajerovend.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 3, 4, 3, new java.awt.Color(176, 111, 211)));
+        BTNcajerovend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNcajerovendActionPerformed(evt);
+            }
+        });
 
         BTNcajerocli.setBackground(new java.awt.Color(187, 142, 211));
         BTNcajerocli.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -61,6 +80,11 @@ public class Cajero extends javax.swing.JFrame {
         BTNcajeroconsul.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNcajeroconsul.setText("Consultas");
         BTNcajeroconsul.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 3, 4, 3, new java.awt.Color(176, 111, 211)));
+        BTNcajeroconsul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNcajeroconsulActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -82,10 +106,10 @@ public class Cajero extends javax.swing.JFrame {
                 .addComponent(BTNcajerocli, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BTNcajeroconsul, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(222, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 510));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 600));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -103,19 +127,9 @@ public class Cajero extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel1)))
-                .addContainerGap(108, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2});
-
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -126,26 +140,26 @@ public class Cajero extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 640, 130));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 800, 130));
 
-        javax.swing.GroupLayout viewpanelcajeroLayout = new javax.swing.GroupLayout(viewpanelcajero);
-        viewpanelcajero.setLayout(viewpanelcajeroLayout);
-        viewpanelcajeroLayout.setHorizontalGroup(
-            viewpanelcajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnlCajeroLayout = new javax.swing.GroupLayout(pnlCajero);
+        pnlCajero.setLayout(pnlCajeroLayout);
+        pnlCajeroLayout.setHorizontalGroup(
+            pnlCajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
-        viewpanelcajeroLayout.setVerticalGroup(
-            viewpanelcajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+        pnlCajeroLayout.setVerticalGroup(
+            pnlCajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 470, Short.MAX_VALUE)
         );
 
-        jPanel1.add(viewpanelcajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 640, 380));
+        jPanel1.add(pnlCajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 800, 470));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,8 +170,16 @@ public class Cajero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BTNcajerocliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNcajerocliActionPerformed
-        // TODO add your handling code here:
+        cardLayout.show(pnlCajero, "Clientes");
     }//GEN-LAST:event_BTNcajerocliActionPerformed
+
+    private void BTNcajeroconsulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNcajeroconsulActionPerformed
+        cardLayout.show(pnlCajero, "Consultas");
+    }//GEN-LAST:event_BTNcajeroconsulActionPerformed
+
+    private void BTNcajerovendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNcajerovendActionPerformed
+        cardLayout.show(pnlCajero, "Ventas");
+    }//GEN-LAST:event_BTNcajerovendActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,6 +225,6 @@ public class Cajero extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel viewpanelcajero;
+    private javax.swing.JPanel pnlCajero;
     // End of variables declaration//GEN-END:variables
 }

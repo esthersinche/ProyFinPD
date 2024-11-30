@@ -251,7 +251,9 @@ public class caja_clientes extends javax.swing.JPanel {
 
         txtDNI.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
 
+        btnbuscar.setBackground(new java.awt.Color(187, 142, 211));
         btnbuscar.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        btnbuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnbuscar.setText("Buscar");
 
         javax.swing.GroupLayout pnlBuscarXdniLayout = new javax.swing.GroupLayout(pnlBuscarXdni);

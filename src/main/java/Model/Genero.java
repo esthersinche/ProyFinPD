@@ -3,7 +3,15 @@ package Model;
 public class Genero {
     private String idGen;
     private String genero;
-
+    
+    public Genero(String idGen, String genero){
+        this.idGen = idGen;
+        this.genero = genero;
+    }
+    
+    public Genero(){
+    }
+    
     public String getIdGen() {
         return idGen;
     }

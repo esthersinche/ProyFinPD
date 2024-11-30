@@ -1,5 +1,7 @@
 package Controler;
+import DAO.InventarioDAO;
 import DAO.LibroDAO;
+import Model.Inventario;
 import Model.Libro;
 import java.sql.SQLException;
 import java.util.List;
@@ -7,9 +9,11 @@ import java.util.List;
 public class CInventario {
 
     private final LibroDAO libroDAO;
+    private final InventarioDAO inventarioDAO;
 
     public CInventario() {
         this.libroDAO = new LibroDAO();
+        this.inventarioDAO = new InventarioDAO();
     }
 
     public void actualizarStock(String idLibro, int cantidad) throws SQLException {
@@ -22,8 +26,8 @@ public class CInventario {
     }
 
     public int consultarStock(String idLibro) throws SQLException {
-        Libro libro = libroDAO.obtenerPorId(idLibro);
-        return libro != null ? (int) libro.getPrecio() : 0; // Asumiendo que el precio representa el stock.
+        Inventario inventario = inventarioDAO.obtenerPorId(idLibro); // Usamos el DAO de Inventario para obtener el stock
+        return inventario != null ? inventario.getStock() : 0; // Si el inventario existe, retornamos el stock, si no, retornamos 0
     }
 
     public List<Libro> obtenerLibrosConStock() throws SQLException {

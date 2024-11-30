@@ -16,6 +16,9 @@ public class DetVenta {
         this.cantDetVenta = cantDetVenta;
         this.precioUnitDetVenta = precioUnitDetVenta;
     }
+    
+    public DetVenta(){
+    }
 
     public String getIdDetVenta() {
         return idDetVenta;

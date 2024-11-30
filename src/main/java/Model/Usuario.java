@@ -15,6 +15,9 @@ public class Usuario {
         this.rango = rango;
         this.idEmp = idEmp;
     }
+    
+    public Usuario(){
+    }
 
     // Getters y setters
     public String getIdUsuario() {

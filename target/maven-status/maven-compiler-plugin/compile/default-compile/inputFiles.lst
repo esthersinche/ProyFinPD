@@ -1,3 +1,4 @@
+C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\View\caja_Consultas.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\Model\Genero.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\DAO\ModalidadDAO.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\Model\Autor.java
@@ -5,6 +6,8 @@ C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\Model\Venta.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\Controler\CCliente.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\DAO\VentaDAO.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\DAO\InventarioDAO.java
+C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\View\caja_ventas.java
+C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\View\caja_clientes.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\DAO\DetVentaDAO.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\util\TestConexion.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\View\Login.java
@@ -12,6 +15,7 @@ C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\Controler\CInventari
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\Model\Editorial.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\Model\Puesto.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\Model\Idioma.java
+C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\View\caja_resumenVentas.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\DAO\PuestoDAO.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\Model\Libro.java
 C:\Users\BeeIsMega\Documents\GitHub\ProyFinPD\src\main\java\Model\Usuario.java

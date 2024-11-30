@@ -2,86 +2,99 @@ package DAO;
 
 import Interface.ICrud_DAO;
 import Model.Modalidad;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import util.SQLConexion;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import util.SQLConexion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ModalidadDAO implements ICrud_DAO<Modalidad> {
 
+    private static final Logger logger = Logger.getLogger(ModalidadDAO.class.getName());
+    private static final String TABLE_NAME = "MODALIDAD";
+    private static final String COLUMN_TIP_MOD = "TIP_MOD";
+    private static final String COLUMN_MODALIDAD = "MODALIDAD";
+
     @Override
     public void guardar(Modalidad modalidad) throws SQLException {
-        String sql = "INSERT INTO MODALIDAD (TIP_MOD, MODALIDAD) VALUES (?, ?)";
-
-        try (Connection conn = SQLConexion.getInstancia().getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+        String sql = "INSERT INTO " + TABLE_NAME + " (" + COLUMN_TIP_MOD + ", " + COLUMN_MODALIDAD + ") VALUES (?, ?)";
+        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, modalidad.getTipMod());
             stmt.setString(2, modalidad.getModalidad());
-
             stmt.executeUpdate();
+            logger.log(Level.INFO, "Modalidad guardada correctamente: {0}", modalidad.getTipMod());
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al guardar modalidad", e);
+            throw e;
         }
     }
 
     @Override
     public Modalidad obtenerPorId(String id) throws SQLException {
-        String sql = "SELECT * FROM MODALIDAD WHERE TIP_MOD = ?";
-        Modalidad modalidad = null;
-
-        try (Connection conn = SQLConexion.getInstancia().getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_TIP_MOD + " = ?";
+        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    modalidad = new Modalidad();
-                    modalidad.setTipMod(rs.getString("TIP_MOD"));
-                    modalidad.setModalidad(rs.getString("MODALIDAD"));
+                    return mapearModalidad(rs);
                 }
             }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al obtener modalidad por ID: " + id, e);
+            throw e;
         }
-        return modalidad;
+        logger.log(Level.WARNING, "No se encontró modalidad con ID: {0}", id);
+        return null;
     }
 
     @Override
     public List<Modalidad> obtenerTodos() throws SQLException {
-        String sql = "SELECT * FROM MODALIDAD";
         List<Modalidad> modalidades = new ArrayList<>();
-
-        try (Connection conn = SQLConexion.getInstancia().getConexion(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
-
+        String sql = "SELECT * FROM " + TABLE_NAME;
+        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                Modalidad modalidad = new Modalidad();
-                modalidad.setTipMod(rs.getString("TIP_MOD"));
-                modalidad.setModalidad(rs.getString("MODALIDAD"));
-                modalidades.add(modalidad);
+                modalidades.add(mapearModalidad(rs));
             }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al obtener todas las modalidades", e);
+            throw e;
         }
         return modalidades;
     }
 
     @Override
     public void actualizar(Modalidad modalidad) throws SQLException {
-        String sql = "UPDATE MODALIDAD SET MODALIDAD = ? WHERE TIP_MOD = ?";
-
-        try (Connection conn = SQLConexion.getInstancia().getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+        String sql = "UPDATE " + TABLE_NAME + " SET " + COLUMN_MODALIDAD + " = ? WHERE " + COLUMN_TIP_MOD + " = ?";
+        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, modalidad.getModalidad());
             stmt.setString(2, modalidad.getTipMod());
-
             stmt.executeUpdate();
+            logger.log(Level.INFO, "Modalidad actualizada correctamente: {0}", modalidad.getTipMod());
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al actualizar modalidad", e);
+            throw e;
         }
     }
 
     @Override
     public void eliminar(String id) throws SQLException {
-        String sql = "DELETE FROM MODALIDAD WHERE TIP_MOD = ?";
-
-        try (Connection conn = SQLConexion.getInstancia().getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+        String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_TIP_MOD + " = ?";
+        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, id);
             stmt.executeUpdate();
+            logger.log(Level.INFO, "Modalidad eliminada correctamente: {0}", id);
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al eliminar modalidad", e);
+            throw e;
         }
+    }
+
+    private Modalidad mapearModalidad(ResultSet rs) throws SQLException {
+        return new Modalidad(
+                rs.getString(COLUMN_TIP_MOD),
+                rs.getString(COLUMN_MODALIDAD)
+        );
     }
 }

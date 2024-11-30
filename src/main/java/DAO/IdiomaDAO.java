@@ -2,86 +2,99 @@ package DAO;
 
 import Interface.ICrud_DAO;
 import Model.Idioma;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import util.SQLConexion;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import util.SQLConexion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class IdiomaDAO implements ICrud_DAO<Idioma> {
 
+    private static final Logger logger = Logger.getLogger(IdiomaDAO.class.getName());
+    private static final String TABLE_NAME = "IDIOMA";
+    private static final String COLUMN_ID = "ID_IDIOMA";
+    private static final String COLUMN_NAME = "IDIOMA";
+
     @Override
     public void guardar(Idioma idioma) throws SQLException {
-        String sql = "INSERT INTO IDIOMAS (ID_IDIOMA, IDIOMA) VALUES (?, ?)";
-
-        try (Connection conn = SQLConexion.getInstancia().getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+        String sql = "INSERT INTO " + TABLE_NAME + " (" + COLUMN_ID + ", " + COLUMN_NAME + ") VALUES (?, ?)";
+        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, idioma.getIdIdioma());
             stmt.setString(2, idioma.getIdioma());
-
             stmt.executeUpdate();
+            logger.log(Level.INFO, "Idioma guardado correctamente: {0}", idioma.getIdIdioma());
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al guardar idioma", e);
+            throw e;
         }
     }
 
     @Override
     public Idioma obtenerPorId(String id) throws SQLException {
-        String sql = "SELECT * FROM IDIOMAS WHERE ID_IDIOMA = ?";
-        Idioma idioma = null;
-
-        try (Connection conn = SQLConexion.getInstancia().getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = ?";
+        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    idioma = new Idioma();
-                    idioma.setIdIdioma(rs.getString("ID_IDIOMA"));
-                    idioma.setIdioma(rs.getString("IDIOMA"));
+                    return mapearIdioma(rs);
                 }
             }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al obtener idioma por ID: " + id, e);
+            throw e;
         }
-        return idioma;
+        logger.log(Level.WARNING, "No se encontró idioma con ID: {0}", id);
+        return null;
     }
 
     @Override
     public List<Idioma> obtenerTodos() throws SQLException {
-        String sql = "SELECT * FROM IDIOMAS";
         List<Idioma> idiomas = new ArrayList<>();
-
-        try (Connection conn = SQLConexion.getInstancia().getConexion(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
-
+        String sql = "SELECT * FROM " + TABLE_NAME;
+        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                Idioma idioma = new Idioma();
-                idioma.setIdIdioma(rs.getString("ID_IDIOMA"));
-                idioma.setIdioma(rs.getString("IDIOMA"));
-                idiomas.add(idioma);
+                idiomas.add(mapearIdioma(rs));
             }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al obtener todos los idiomas", e);
+            throw e;
         }
         return idiomas;
     }
 
     @Override
     public void actualizar(Idioma idioma) throws SQLException {
-        String sql = "UPDATE IDIOMAS SET IDIOMA = ? WHERE ID_IDIOMA = ?";
-
-        try (Connection conn = SQLConexion.getInstancia().getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+        String sql = "UPDATE " + TABLE_NAME + " SET " + COLUMN_NAME + " = ? WHERE " + COLUMN_ID + " = ?";
+        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, idioma.getIdioma());
             stmt.setString(2, idioma.getIdIdioma());
-
             stmt.executeUpdate();
+            logger.log(Level.INFO, "Idioma actualizado correctamente: {0}", idioma.getIdIdioma());
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al actualizar idioma", e);
+            throw e;
         }
     }
 
     @Override
     public void eliminar(String id) throws SQLException {
-        String sql = "DELETE FROM IDIOMAS WHERE ID_IDIOMA = ?";
-
-        try (Connection conn = SQLConexion.getInstancia().getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+        String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = ?";
+        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, id);
             stmt.executeUpdate();
+            logger.log(Level.INFO, "Idioma eliminado correctamente: {0}", id);
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al eliminar idioma", e);
+            throw e;
         }
+    }
+
+    private Idioma mapearIdioma(ResultSet rs) throws SQLException {
+        return new Idioma(
+                rs.getString(COLUMN_ID),
+                rs.getString(COLUMN_NAME)
+        );
     }
 }

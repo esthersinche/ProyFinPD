@@ -3,7 +3,14 @@ package Model;
 public class Modalidad {
     private String tipMod;
     private String modalidad;
-
+    
+    public Modalidad(String tipMod, String modalidad){
+        this.tipMod = tipMod;
+        this.modalidad = modalidad;
+    }
+    
+    public Modalidad(){
+    }
     public String getTipMod() {
         return tipMod;
     }

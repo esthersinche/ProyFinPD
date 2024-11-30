@@ -11,7 +11,21 @@ public class Empleado {
     private String tipSueldo;     
     private String tipMod;        
     private String idNac; 
-
+    
+    
+    public Empleado(String idEmp, String nomEmp, String apeEmp, LocalDate fechaIng, String tipPuesto, String tipSueldo,String tipMod, String idNac){
+        this.idEmp = idEmp;
+        this.nomEmp = nomEmp;
+        this.apeEmp = apeEmp;
+        this.fechaIng = fechaIng;
+        this.tipPuesto = tipPuesto;
+        this.tipSueldo = tipSueldo;
+        this.tipMod = tipMod;
+        this.idNac = idNac;
+    }
+    
+    public Empleado(){}
+    
     public String getIdEmp() {
         return idEmp;
     }

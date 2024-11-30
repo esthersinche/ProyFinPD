@@ -3,6 +3,14 @@ package Model;
 public class Nacionalidad {
     private String idNac;
     private String nacion;
+    
+    public Nacionalidad(String idNac, String nacion){
+        this.idNac = idNac;
+        this.nacion = nacion;
+    }
+    
+    public Nacionalidad(){
+    }
 
     public String getIdNac() {
         return idNac;

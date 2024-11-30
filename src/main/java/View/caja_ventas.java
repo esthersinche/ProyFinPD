@@ -3,20 +3,38 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package View;
+import DAO.AutorDAO;
+import DAO.EditorialDAO;
+import DAO.GeneroDAO;
+import DAO.IdiomaDAO;
+import DAO.LibroDAO;
+import Model.Autor;
+import Model.Editorial;
+import Model.Genero;
+import Model.Idioma;
+import Model.Libro;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author BeeIsMega
- */
 public class caja_ventas extends javax.swing.JPanel {
-
-    /**
-     * Creates new form caja_ventas
-     */
+    DefaultTableModel m = new DefaultTableModel();
     public caja_ventas() {
         initComponents();
+        mostrarCabecera();
     }
-
+    
+    public void mostrarCabecera(){
+        m.addColumn("id");
+        m.addColumn("Titulo");
+        m.addColumn("Precio");
+        m.addColumn("Autor");
+        m.addColumn("Editorial");
+        m.addColumn("Genero");
+        m.addColumn("Idioma");
+        tblLibros.setModel(m);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,7 +47,7 @@ public class caja_ventas extends javax.swing.JPanel {
         pnlCliente = new javax.swing.JTabbedPane();
         pnlListarLibros = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblLibros = new javax.swing.JTable();
         btnListar = new javax.swing.JButton();
         pnlRegistroVentaCli = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -45,7 +63,8 @@ public class caja_ventas extends javax.swing.JPanel {
         jTable3 = new javax.swing.JTable();
         jLabel18 = new javax.swing.JLabel();
         txtDni3 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnVenderSinCli = new javax.swing.JButton();
+        btnAddSinCli = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -54,7 +73,7 @@ public class caja_ventas extends javax.swing.JPanel {
 
         pnlListarLibros.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblLibros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -65,12 +84,17 @@ public class caja_ventas extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblLibros);
 
         btnListar.setBackground(new java.awt.Color(187, 142, 211));
         btnListar.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
         btnListar.setForeground(new java.awt.Color(255, 255, 255));
         btnListar.setText("Listar Libros");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlListarLibrosLayout = new javax.swing.GroupLayout(pnlListarLibros);
         pnlListarLibros.setLayout(pnlListarLibrosLayout);
@@ -89,8 +113,8 @@ public class caja_ventas extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         pnlCliente.addTab("Listar Libros", pnlListarLibros);
@@ -124,9 +148,20 @@ public class caja_ventas extends javax.swing.JPanel {
 
         btnAdd.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
         btnAdd.setText("Añadir");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
+        btnVender.setBackground(new java.awt.Color(187, 142, 211));
         btnVender.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
         btnVender.setText("Vender");
+        btnVender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenderActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlRegistroVentaCliLayout = new javax.swing.GroupLayout(pnlRegistroVentaCli);
         pnlRegistroVentaCli.setLayout(pnlRegistroVentaCliLayout);
@@ -141,22 +176,16 @@ public class caja_ventas extends javax.swing.JPanel {
                             .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29)
                         .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlRegistroVentaCliLayout.createSequentialGroup()
-                                .addComponent(txtDni1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(pnlRegistroVentaCliLayout.createSequentialGroup()
-                                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtDni1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(117, 117, 117)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62))
-                    .addGroup(pnlRegistroVentaCliLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegistroVentaCliLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(263, 263, 263))
+                .addGap(265, 265, 265))
         );
 
         pnlRegistroVentaCliLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel15, jLabel16});
@@ -177,9 +206,9 @@ public class caja_ventas extends javax.swing.JPanel {
                     .addComponent(btnAdd))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVender)
-                .addContainerGap())
+                .addGap(17, 17, 17))
         );
 
         pnlCliente.addTab("Registrar Ventas con Cliente", pnlRegistroVentaCli);
@@ -205,8 +234,23 @@ public class caja_ventas extends javax.swing.JPanel {
 
         txtDni3.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
-        jButton2.setText("Vender");
+        btnVenderSinCli.setBackground(new java.awt.Color(187, 142, 211));
+        btnVenderSinCli.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        btnVenderSinCli.setForeground(new java.awt.Color(255, 255, 255));
+        btnVenderSinCli.setText("Vender");
+        btnVenderSinCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenderSinCliActionPerformed(evt);
+            }
+        });
+
+        btnAddSinCli.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        btnAddSinCli.setText("Añadir");
+        btnAddSinCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddSinCliActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlRegistroVentasSinCliLayout = new javax.swing.GroupLayout(pnlRegistroVentasSinCli);
         pnlRegistroVentasSinCli.setLayout(pnlRegistroVentasSinCliLayout);
@@ -218,11 +262,15 @@ public class caja_ventas extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(txtDni3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                .addComponent(btnAddSinCli)
+                .addGap(34, 34, 34))
             .addGroup(pnlRegistroVentasSinCliLayout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegistroVentasSinCliLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVenderSinCli, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(252, 252, 252))
         );
         pnlRegistroVentasSinCliLayout.setVerticalGroup(
             pnlRegistroVentasSinCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,10 +279,12 @@ public class caja_ventas extends javax.swing.JPanel {
                 .addGroup(pnlRegistroVentasSinCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtDni3)
-                    .addComponent(jButton2))
+                    .addComponent(btnAddSinCli))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVenderSinCli)
+                .addGap(20, 20, 20))
         );
 
         pnlCliente.addTab("Registrar Ventas sin Cliente", pnlRegistroVentasSinCli);
@@ -257,25 +307,74 @@ public class caja_ventas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        try {
+            LibroDAO ld = new LibroDAO();
+            List<Libro> vl = ld.obtenerTodos();
+            IdiomaDAO idd = new IdiomaDAO();
+            GeneroDAO gd = new GeneroDAO();
+            AutorDAO ad = new AutorDAO();
+            EditorialDAO ed = new EditorialDAO();
+            m.setRowCount(0); 
+            for(Libro libro: vl){
+                Idioma idioma = idd.obtenerPorId(libro.getIdIdioma());
+                Genero genero = gd.obtenerPorId(libro.getIdGen());
+                Autor autor = ad.obtenerPorId(libro.getIdAutor());
+                Editorial editorial = ed.obtenerPorId(libro.getIdEdito());
+                
+                Object[] data = {
+                    libro.getIdLibro(),
+                    libro.getTitulo(),
+                    libro.getPrecio(),
+                    autor.getNomAutor()+" "+autor.getApeAutor(),
+                    editorial.getNomEdito(),
+                    genero.getGenero(),
+                    idioma.getIdioma(),
+                };
+                m.addRow(data);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnListarActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVenderActionPerformed
+
+    private void btnAddSinCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSinCliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddSinCliActionPerformed
+
+    private void btnVenderSinCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderSinCliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVenderSinCliActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAddSinCli;
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnVender;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnVenderSinCli;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTabbedPane pnlCliente;
     private javax.swing.JPanel pnlListarLibros;
     private javax.swing.JPanel pnlRegistroVentaCli;
     private javax.swing.JPanel pnlRegistroVentasSinCli;
+    private javax.swing.JTable tblLibros;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtDni1;
     private javax.swing.JTextField txtDni3;
