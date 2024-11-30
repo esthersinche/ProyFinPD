@@ -138,7 +138,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
-                              <Component id="jButton1" max="32767" attributes="0"/>
+                              <Component id="BTNloginusuario" max="32767" attributes="0"/>
                               <EmptySpace min="123" pref="123" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -162,7 +162,7 @@
                           <Component id="txtpass" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="BTNloginusuario" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace pref="79" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -221,7 +221,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="BTNloginusuario">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="d3" green="7a" red="b4" type="rgb"/>
@@ -246,7 +246,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTNloginusuarioActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="txtpass">

@@ -17,8 +17,9 @@ public class SQLConexion {
     static {
         try {
             // Configuración de la conexión
-            config.setJdbcUrl("jdbc:sqlserver://localhost:1433;databaseName=BDLIBRERIA;encrypt=true;trustServerCertificate=true");
-            config.setUsername("sa"); // Usuario de la base de datos
+            config.setJdbcUrl("jdbc:sqlserver://localhost:1433;databaseName=PD2024PROY;encrypt=true;trustServerCertificate=true");
+            config.setUsername("sa1"); // Usuario de la base de datos, laura: sa1, default: sa
+            //default: databaseName=BDLIBRERIA, laura: databaseName= PD2024PROY
             config.setPassword("1234"); // Contraseña de la base de datos
 
             // Configuración del pool

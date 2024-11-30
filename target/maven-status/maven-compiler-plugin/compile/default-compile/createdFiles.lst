@@ -9,7 +9,6 @@ DAO\LibroDAO.class
 view\Admin$1.class
 util\TestConexion.class
 DAO\SueldoDAO.class
-view\admin_clientes$3.class
 view\Cajero$4.class
 Controler\CUsuario.class
 Model\Usuario.class
@@ -17,12 +16,9 @@ Model\Genero.class
 view\Login$1.class
 Model\Venta.class
 view\caja_ventas$1.class
-view\admin_clientes$1.class
 view\caja_resumenVentas.class
-view\admin_clientes.class
 view\Cajero$3.class
 Model\Puesto.class
-view\admin_clientes$4.class
 Model\Inventario.class
 Model\Libro.class
 DAO\NacionalidadDAO.class
@@ -48,6 +44,7 @@ Interface\ICrud_DAO.class
 DAO\AutorDAO.class
 view\caja_ventas$3.class
 DAO\EditorialDAO.class
+view\admin_registrarusuario.class
 DAO\EmpleadoDAO.class
 view\Cajero$1.class
 Model\Empleado.class
@@ -63,4 +60,3 @@ Model\Nacionalidad.class
 DAO\InventarioDAO.class
 Model\Editorial.class
 Model\Idioma.class
-view\admin_clientes$2.class

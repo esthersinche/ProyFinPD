@@ -39,7 +39,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtuser = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        BTNloginusuario = new javax.swing.JButton();
         txtpass = new javax.swing.JPasswordField();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -82,15 +82,15 @@ public class Login extends javax.swing.JFrame {
         txtuser.setForeground(new java.awt.Color(51, 51, 51));
         txtuser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.darkGray));
 
-        jButton1.setBackground(new java.awt.Color(180, 122, 211));
-        jButton1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Login");
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.darkGray));
-        jButton1.setMargin(new java.awt.Insets(3, 18, 6, 19));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BTNloginusuario.setBackground(new java.awt.Color(180, 122, 211));
+        BTNloginusuario.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        BTNloginusuario.setForeground(new java.awt.Color(255, 255, 255));
+        BTNloginusuario.setText("Login");
+        BTNloginusuario.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.darkGray));
+        BTNloginusuario.setMargin(new java.awt.Insets(3, 18, 6, 19));
+        BTNloginusuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BTNloginusuarioActionPerformed(evt);
             }
         });
 
@@ -118,7 +118,7 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(txtpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(143, 143, 143)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BTNloginusuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(123, 123, 123)))
                 .addGap(29, 29, 29))
         );
@@ -136,7 +136,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(59, 59, 59)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BTNloginusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(79, Short.MAX_VALUE))
         );
 
@@ -177,7 +177,7 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BTNloginusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNloginusuarioActionPerformed
         // Obtener las credenciales ingresadas
         String usuario = txtuser.getText();
         String contrasena = String.valueOf(txtpass.getPassword());
@@ -205,7 +205,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al autenticar el usuario: " + e.getMessage());
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BTNloginusuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,7 +243,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton BTNloginusuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
