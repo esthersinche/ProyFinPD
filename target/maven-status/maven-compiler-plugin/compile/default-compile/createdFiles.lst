@@ -10,6 +10,7 @@ view\Admin$1.class
 util\TestConexion.class
 DAO\SueldoDAO.class
 view\Cajero$4.class
+view\Admin$4.class
 Controler\CUsuario.class
 Model\Usuario.class
 Model\Genero.class
@@ -19,6 +20,7 @@ view\caja_ventas$1.class
 view\caja_resumenVentas.class
 view\Cajero$3.class
 Model\Puesto.class
+view\admin_libros.class
 Model\Inventario.class
 Model\Libro.class
 DAO\NacionalidadDAO.class
@@ -52,6 +54,7 @@ DAO\IdiomaDAO.class
 Model\Autor.class
 view\caja_clientes$2.class
 util\SQLConexion.class
+view\admin_inventario.class
 Controler\CInventario.class
 Model\Sueldo.class
 view\caja_ventas$2.class
@@ -60,3 +63,5 @@ Model\Nacionalidad.class
 DAO\InventarioDAO.class
 Model\Editorial.class
 Model\Idioma.class
+view\Admin$3.class
+view\admin_inventario$1.class

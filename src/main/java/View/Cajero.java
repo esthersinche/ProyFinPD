@@ -18,8 +18,8 @@ public class Cajero extends javax.swing.JFrame {
 
     public Cajero() {
         initComponents();
-        cardLayout = new CardLayout();  // Inicializar CardLayout
-        pnlCajero.setLayout(cardLayout);  // Establecer el CardLayout en pnlCajero
+        cardLayout = new CardLayout();  // inicializa el CardLayout
+        pnlCajero.setLayout(cardLayout);  // establece el CardLayout en pnlCajero
 
         // Agregar los paneles con nombres como "tarjetas"
         pnlCajero.add(ven, "Ventas");

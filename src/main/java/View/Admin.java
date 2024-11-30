@@ -4,17 +4,34 @@
  */
 package View;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author PERSONAL
  */
 public class Admin extends javax.swing.JFrame {
+    
+    private CardLayout cardlayout;//se crea para inicializarse luego
+    private admin_registrarusuario regusu= new admin_registrarusuario();//instancia de los paneles del primer boton
+    private admin_libros reglib= new admin_libros();//instancia de los paneles del segundo boton
+    private admin_inventario regstock= new admin_inventario();
+    
 
     /**
      * Creates new form Admin
      */
     public Admin() {
         initComponents();
+        cardlayout= new CardLayout();
+        viewpaneladmin.setLayout(cardlayout);
+        
+        //tarjetas
+        viewpaneladmin.add(regusu, "Operaciones Admin Usuarios");
+        viewpaneladmin.add(reglib, "Operaciones Admin Libros");
+        viewpaneladmin.add(regstock, "Operaciones Admin Stock");
+        
+        
     }
 
     /**
@@ -29,7 +46,7 @@ public class Admin extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        BTNadmincli = new javax.swing.JButton();
+        BTNadminusu = new javax.swing.JButton();
         BTNadminlib = new javax.swing.JButton();
         BTNadminstock = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -46,13 +63,13 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(187, 142, 211));
 
-        BTNadmincli.setBackground(new java.awt.Color(187, 142, 211));
-        BTNadmincli.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        BTNadmincli.setText("Clientes");
-        BTNadmincli.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 3, 4, 3, new java.awt.Color(176, 111, 211)));
-        BTNadmincli.addActionListener(new java.awt.event.ActionListener() {
+        BTNadminusu.setBackground(new java.awt.Color(187, 142, 211));
+        BTNadminusu.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        BTNadminusu.setText("Usuarios");
+        BTNadminusu.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 3, 4, 3, new java.awt.Color(176, 111, 211)));
+        BTNadminusu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BTNadmincliActionPerformed(evt);
+                BTNadminusuActionPerformed(evt);
             }
         });
 
@@ -60,17 +77,27 @@ public class Admin extends javax.swing.JFrame {
         BTNadminlib.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadminlib.setText("Libros");
         BTNadminlib.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 3, 4, 3, new java.awt.Color(176, 111, 211)));
+        BTNadminlib.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminlibActionPerformed(evt);
+            }
+        });
 
         BTNadminstock.setBackground(new java.awt.Color(187, 142, 211));
         BTNadminstock.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadminstock.setText("Stock");
         BTNadminstock.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 3, 4, 3, new java.awt.Color(176, 111, 211)));
+        BTNadminstock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminstockActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BTNadmincli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(BTNadminusu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(BTNadminlib, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(BTNadminstock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -84,7 +111,7 @@ public class Admin extends javax.swing.JFrame {
                 .addGap(109, 109, 109)
                 .addComponent(jLabel4)
                 .addGap(64, 64, 64)
-                .addComponent(BTNadmincli, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BTNadminusu, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BTNadminlib, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -154,9 +181,19 @@ public class Admin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BTNadmincliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadmincliActionPerformed
-        
-    }//GEN-LAST:event_BTNadmincliActionPerformed
+    private void BTNadminusuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminusuActionPerformed
+        cardlayout.show(viewpaneladmin, "Operaciones Admin Usuarios");
+    }//GEN-LAST:event_BTNadminusuActionPerformed
+
+    private void BTNadminlibActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminlibActionPerformed
+        // TODO add your handling code here:
+        cardlayout.show(viewpaneladmin, "Operaciones Admin Libros");
+    }//GEN-LAST:event_BTNadminlibActionPerformed
+
+    private void BTNadminstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminstockActionPerformed
+        // TODO add your handling code here:
+        cardlayout.show(viewpaneladmin, "Operaciones Admin Stock");
+    }//GEN-LAST:event_BTNadminstockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,9 +231,9 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BTNadmincli;
     private javax.swing.JButton BTNadminlib;
     private javax.swing.JButton BTNadminstock;
+    private javax.swing.JButton BTNadminusu;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
