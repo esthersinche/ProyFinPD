@@ -3,7 +3,15 @@ package Model;
 public class Idioma {
     private String idIdioma;
     private String idioma;
-
+    
+    public Idioma(String idIdioma, String idioma){
+        this.idIdioma = idIdioma;
+        this.idioma = idioma;
+    }
+    
+    public Idioma(){
+    }
+    
     public String getIdIdioma() {
         return idIdioma;
     }

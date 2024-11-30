@@ -94,27 +94,27 @@ public class caja_clientes extends javax.swing.JPanel {
 
         pnlRegistro.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel17.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel17.setText("FECHA HOY:");
 
-        jLabel19.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel19.setText("CELULAR:");
 
-        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("NOMBRE:");
 
-        jLabel20.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel20.setText("NACIONALIDAD:");
 
-        txtnombre.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        txtnombre.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
 
-        txtDirec.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        txtDirec.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
 
-        txtId.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        txtId.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
 
         AgregarCliente.setBackground(new java.awt.Color(187, 142, 211));
         AgregarCliente.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
@@ -127,23 +127,23 @@ public class caja_clientes extends javax.swing.JPanel {
             }
         });
 
-        txtape.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        txtape.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("ID CLIENTE:");
 
-        jLabel14.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("APELLIDO:");
 
-        txtFecha.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        txtFecha.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
 
-        jLabel15.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("DNI:");
 
-        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("DIRECCION:");
 
@@ -175,7 +175,7 @@ public class caja_clientes extends javax.swing.JPanel {
                     .addComponent(txtnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                     .addComponent(jSpinner1)
                     .addComponent(jSpinner2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addComponent(AgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -217,14 +217,14 @@ public class caja_clientes extends javax.swing.JPanel {
                     .addComponent(jLabel19)
                     .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel17)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pnlRegistroLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox1, jSpinner1, jSpinner2, txtDirec, txtFecha, txtId, txtape, txtnombre});
@@ -251,7 +251,9 @@ public class caja_clientes extends javax.swing.JPanel {
 
         txtDNI.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
 
+        btnbuscar.setBackground(new java.awt.Color(187, 142, 211));
         btnbuscar.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        btnbuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnbuscar.setText("Buscar");
 
         javax.swing.GroupLayout pnlBuscarXdniLayout = new javax.swing.GroupLayout(pnlBuscarXdni);

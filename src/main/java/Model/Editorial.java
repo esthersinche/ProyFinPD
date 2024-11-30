@@ -5,7 +5,17 @@ public class Editorial {
     private String nomEdito;
     private String direcEdito;
     private int celEdito;
-
+    
+    public Editorial (String idEdito, String nomEdito, String direcEdito, int celEdito){
+    this.idEdito = idEdito;
+    this.nomEdito = nomEdito;
+    this.direcEdito = direcEdito;
+    this.celEdito = celEdito;    
+    }
+    
+    public Editorial (){
+    }
+    
     public String getIdEdito() {
         return idEdito;
     }

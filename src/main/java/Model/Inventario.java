@@ -6,7 +6,18 @@ public class Inventario {
     private String idIdioma;
     private String idEdito;
     private int stock;
-
+    
+    public Inventario(String idLibro, String idGen, String idIdioma, String idEdito, int stock){
+        this.idLibro = idLibro;
+        this.idGen = idGen;
+        this.idIdioma = idIdioma;
+        this.idEdito = idEdito;
+        this.stock = stock;
+    }
+    
+    public Inventario(){
+    }
+    
     public String getIdLibro() {
         return idLibro;
     }

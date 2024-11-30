@@ -19,6 +19,9 @@ public class Libro {
         this.idIdioma = idIdioma;
     }
     
+    public Libro(){
+    }
+    
     public String getIdLibro() {
         return idLibro;
     }

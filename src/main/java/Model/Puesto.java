@@ -3,6 +3,14 @@ package Model;
 public class Puesto {
     private String tipPuesto;
     private String puesto;
+    
+    public Puesto (String tipPuesto, String puesto){
+    this.tipPuesto = tipPuesto;
+    this.puesto = puesto;
+    }
+    
+    public Puesto(){
+    }
 
     public String getTipPuesto() {
         return tipPuesto;
