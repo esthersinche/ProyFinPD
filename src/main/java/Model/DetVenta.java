@@ -17,6 +17,15 @@ public class DetVenta {
         this.precioUnitDetVenta = precioUnitDetVenta;
     }
     
+    @Override
+    public String toString() {
+        return "ID Detalle: " + idDetVenta
+                + ", ID Libro: " + idLibro
+                + ", Cantidad: " + cantDetVenta
+                + ", Precio Unitario: " + precioUnitDetVenta
+                + ", Subtotal: " + (cantDetVenta * precioUnitDetVenta);
+    }
+    
     public DetVenta(){
     }
 

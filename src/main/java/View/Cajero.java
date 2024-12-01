@@ -13,7 +13,6 @@ public class Cajero extends javax.swing.JFrame {
     private CardLayout cardLayout;  // Crear CardLayout
     private caja_Consultas consul = new caja_Consultas();
     private caja_clientes cli = new caja_clientes();
-    private caja_resumenVentas resum = new caja_resumenVentas();
     private caja_ventas ven = new caja_ventas();
 
     public Cajero() {
@@ -23,7 +22,6 @@ public class Cajero extends javax.swing.JFrame {
 
         // Agregar los paneles con nombres como "tarjetas"
         pnlCajero.add(ven, "Ventas");
-        pnlCajero.add(resum, "ResumenVentas");
         pnlCajero.add(consul, "Consultas");
         pnlCajero.add(cli, "Clientes");
         
@@ -106,10 +104,10 @@ public class Cajero extends javax.swing.JFrame {
                 .addComponent(BTNcajerocli, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BTNcajeroconsul, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 600));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 620));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -150,10 +148,10 @@ public class Cajero extends javax.swing.JFrame {
         );
         pnlCajeroLayout.setVerticalGroup(
             pnlCajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
 
-        jPanel1.add(pnlCajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 800, 470));
+        jPanel1.add(pnlCajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 800, 490));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
