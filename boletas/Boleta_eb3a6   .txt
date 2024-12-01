@@ -1,7 +1,0 @@
-ID Venta: eb3a6   
-Fecha: 2024-12-01
-Cliente: 000000
-Total: 145.0
-Detalles:
-	ID Detalle: 6212c       , ID Libro: LIB_03, Cantidad: 1.0, Precio Unitario: 45.0, Subtotal: 45.0
-	ID Detalle: b4633       , ID Libro: LIB_02, Cantidad: 2.0, Precio Unitario: 50.0, Subtotal: 100.0

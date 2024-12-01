@@ -33,7 +33,7 @@ public class VentaDAO implements ICrud_DAO<Venta> {
 
         try (Connection conn = SQLConexion.getConexion()) {
             conn.setAutoCommit(false);
-
+            
             String idVentaGenerado = UUID.randomUUID().toString().substring(0, 5);  // Generando un ID único
 
             // Asignar el ID_VENTA a la venta
@@ -50,8 +50,6 @@ public class VentaDAO implements ICrud_DAO<Venta> {
 
                 // Insertar Detalles de Venta
                 for (DetVenta detVenta : venta.getDetalles()) {
-                    detVenta.setIdVenta(idVentaGenerado); // Asociar el ID_VENTA generado
-                    detVenta.setIdDetVenta(UUID.randomUUID().toString().substring(0, 5)); // Generar ID único para el detalle
                     stmtDetVenta.setString(1, detVenta.getIdDetVenta());
                     stmtDetVenta.setString(2, detVenta.getIdVenta());
                     stmtDetVenta.setString(3, detVenta.getIdLibro());

@@ -166,6 +166,4 @@ public class ClienteDAO implements ICrud_DAO<Cliente> {
                 rs.getString(COLUMN_NATION)
         );
     }
-    
-    
 }

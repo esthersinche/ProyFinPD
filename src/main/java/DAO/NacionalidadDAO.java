@@ -97,22 +97,4 @@ public class NacionalidadDAO implements ICrud_DAO<Nacionalidad> {
                 rs.getString(COLUMN_NACION)
         );
     }
-
-    public String obtenerIdNacionalidadPorNombre(String nacionalidad) throws SQLException {
-        String sql = "SELECT ID_NAC FROM " + TABLE_NAME + " WHERE "+ COLUMN_NACION + " = ?";
-        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, nacionalidad);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString(COLUMN_ID_NAC);  
-                } else {
-                    throw new SQLException("Nacionalidad no encontrada.");
-                }
-            }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al obtener idNac", e);
-            throw e;
-        }
-    }
-
 }

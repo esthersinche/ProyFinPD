@@ -5,7 +5,6 @@ import DAO.DetVentaDAO;
 import DAO.VentaDAO;
 import Model.DetVenta;
 import Model.Venta;
-import java.awt.CardLayout;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,7 +13,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.*;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -120,28 +118,27 @@ public class caja_resumenVentas extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGenerarBoleta)
-                .addGap(115, 115, 115))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGenerarBoleta)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGenerarBoleta))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -157,7 +154,6 @@ public class caja_resumenVentas extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Error al cancelar la venta", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        volver();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGenerarBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarBoletaActionPerformed
@@ -173,7 +169,6 @@ public class caja_resumenVentas extends javax.swing.JPanel {
             Logger.getLogger(caja_resumenVentas.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(this, "Error al generar la boleta", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        volver();
     }//GEN-LAST:event_btnGenerarBoletaActionPerformed
     private void generarArchivoBoleta(Venta venta) throws IOException {
         String carpetaDestino = "boletas"; // Carpeta para guardar las boletas
@@ -186,13 +181,6 @@ public class caja_resumenVentas extends javax.swing.JPanel {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
             bw.write(venta.toString()); // Asegúrate de que toString de Venta tenga el formato necesario
         }
-    }
-    private void volver(){
-        JPanel pnlCajero = (JPanel) this.getParent();
-        CardLayout cardLayout = (CardLayout) pnlCajero.getLayout();
-
-        // Mostrar el panel anterior (en este caso, "Ventas")
-        cardLayout.show(pnlCajero, "Ventas");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

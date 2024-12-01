@@ -1,13 +1,28 @@
 package View;
 
-import Controler.*;
-import DAO.*;
-import Model.*;
-import java.awt.CardLayout;
-import java.awt.event.*;
+import Controler.CCliente;
+import Controler.CVentas;
+import DAO.AutorDAO;
+import DAO.EditorialDAO;
+import DAO.GeneroDAO;
+import DAO.IdiomaDAO;
+import DAO.LibroDAO;
+import Model.Autor;
+import Model.Cliente;
+import Model.DetVenta;
+import Model.Editorial;
+import Model.Genero;
+import Model.Idioma;
+import Model.Libro;
+import Model.Venta;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
-import java.util.*;
-import javax.swing.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class caja_ventas extends javax.swing.JPanel {
@@ -16,6 +31,8 @@ public class caja_ventas extends javax.swing.JPanel {
     DefaultTableModel m = new DefaultTableModel();
     DefaultTableModel n = new DefaultTableModel();
     private String idVen;
+    
+    
 
     public caja_ventas() {
         initComponents();
@@ -32,13 +49,17 @@ public class caja_ventas extends javax.swing.JPanel {
                 }
             }
         });
-
+        
+        //Validar idVenta
+            if (idVen == null || idVen.isEmpty()) {
+                idVen = UUID.randomUUID().toString().substring(0, 5); // Generar un nuevo ID de venta
+            }
     }
-
     public void obtenerIdVenta() {
         // Generate a new ID or fetch it from DB
         this.idVen = UUID.randomUUID().toString().substring(0, 5);
     }
+    
 
     public void mostrarCabecera1() {
         m.addColumn("id");
@@ -286,9 +307,9 @@ public class caja_ventas extends javax.swing.JPanel {
         // Crear instancias de los controladores necesarios
         CVentas controladorVentas = new CVentas();
         CCliente controladorClientes = new CCliente(); // Controlador para manejar clientes
-
+        
         try {
-
+            
             // Validar el DNI
             String dniClienteStr = txtDni.getText().trim();
             if (dniClienteStr.isEmpty()) {
@@ -317,15 +338,26 @@ public class caja_ventas extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "No hay productos en la lista de venta.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            
+            
+            // Crear la venta
+            Venta nuevaVenta = new Venta();
+            nuevaVenta.setIdVenta(idVen); // Usamos el IdVenta generado
+            nuevaVenta.setIdCli(clienteSeleccionado.getIdCli());
+            nuevaVenta.setFechaVenta(LocalDate.now());
+            nuevaVenta.setTotalVenta(listaDeDetalles.stream()
+                    .mapToDouble(d -> d.getPrecioUnitDetVenta() * d.getCantDetVenta())
+                    .sum());
 
-            // Procesar la venta y obtener el ID generado
-            String idVentaGenerado = controladorVentas.procesarVenta(clienteSeleccionado, listaDeDetalles);
+            controladorVentas.guardarVenta(nuevaVenta);
+            // Procesar la venta con los detalles y cliente
+            controladorVentas.procesarVenta(clienteSeleccionado, listaDeDetalles);
 
             // Mostrar mensaje de éxito
-            JOptionPane.showMessageDialog(this, "Venta registrada con éxito. ID de la venta: " + idVentaGenerado);
+            JOptionPane.showMessageDialog(this, "Venta registrada con éxito.");
 
-            // Mostrar el panel con el resumen de la venta usando el ID generado
-            mostrarResumenVenta(idVentaGenerado);
+            // Mostrar el panel con el resumen de la venta
+            mostrarResumenVenta(nuevaVenta.getIdVenta());
 
             // Limpiar formulario de venta
             limpiarFormularioVenta();
@@ -353,7 +385,7 @@ public class caja_ventas extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Cantidad y precio deben ser valores numéricos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        
         // Crear un nuevo detalle de venta usando la clase DetVenta
         DetVenta detalle = new DetVenta();
         detalle.setIdDetVenta(UUID.randomUUID().toString().substring(0, 5));
@@ -405,7 +437,7 @@ public class caja_ventas extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnListarActionPerformed
-
+    
     private void calcularPrecio() {
         String codigoLibro = txtCodLib.getText().trim();
         String cantidadStr = txtCantidad.getText().trim();
@@ -445,11 +477,8 @@ public class caja_ventas extends javax.swing.JPanel {
     }
 
     private void mostrarResumenVenta(String idVenta) {
-        JPanel pnlCajero = (JPanel) this.getParent();
         caja_resumenVentas resumen = new caja_resumenVentas(idVenta);
-        pnlCajero.add(resumen, "ResumenVenta");
-        CardLayout cardLayout = (CardLayout) pnlCajero.getLayout();
-        cardLayout.show(pnlCajero, "ResumenVenta");
+        resumen.setVisible(true);
     }
 
     private void limpiarFormularioVenta() {
@@ -463,7 +492,7 @@ public class caja_ventas extends javax.swing.JPanel {
         DefaultTableModel modelo = (DefaultTableModel) tblVenta.getModel();
         modelo.setRowCount(0);
     }
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnListar;
@@ -484,5 +513,7 @@ public class caja_ventas extends javax.swing.JPanel {
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
+
+    
 
 }

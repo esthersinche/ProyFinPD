@@ -13,7 +13,7 @@ public class Cajero extends javax.swing.JFrame {
     private CardLayout cardLayout;  // Crear CardLayout
     private caja_Consultas consul = new caja_Consultas();
     private caja_clientes cli = new caja_clientes();
-    private caja_ventas ven = new caja_ventas();  
+    private caja_ventas ven = new caja_ventas();
 
     public Cajero() {
         initComponents();
