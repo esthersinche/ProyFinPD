@@ -27,27 +27,26 @@ public class CVentas {
      * @param detalles Lista de detalles de venta
      * @throws SQLException Si ocurre algún error al guardar en la base de datos
      */
-    public void procesarVenta(Cliente cliente, List<DetVenta> detalles) throws SQLException {
-        // Crear la venta (sin ID_VENTA aún)
+    public String procesarVenta(Cliente cliente, List<DetVenta> detalles) throws SQLException {
         Venta nuevaVenta = new Venta();
         nuevaVenta.setIdCli(cliente.getIdCli());
         nuevaVenta.setFechaVenta(LocalDate.now());
         nuevaVenta.setTotalVenta(detalles.stream()
                 .mapToDouble(d -> d.getPrecioUnitDetVenta() * d.getCantDetVenta())
                 .sum());
+        nuevaVenta.setDetalles(detalles); // Asociar los detalles a la venta
 
-        // Guardar la venta en la base de datos (el ID_VENTA será generado automáticamente si está configurado así)
+        // Guardar la venta
         ventaDAO.guardar(nuevaVenta);
 
-        // Recuperar el ID generado por la base de datos para la venta
-        String idVentaGenerado = nuevaVenta.getIdVenta(); // Suponiendo que `ventaDAO.guardar()` actualiza `nuevaVenta` con el ID generado
+        // El ID generado ya está en la venta
+        String idVentaGenerado = nuevaVenta.getIdVenta();
 
-        // Ahora que tenemos el ID_VENTA, asignarlo a los detalles y guardarlos
-        for (DetVenta detalle : detalles) {
-            detalle.setIdVenta(idVentaGenerado); // Asociar el ID_VENTA al detalle
-            detalle.setIdDetVenta(UUID.randomUUID().toString().substring(0, 5)); // Crear un ID único para cada detalle
-            detVentaDAO.guardar(detalle); // Guardar cada detalle de venta
+        if (idVentaGenerado == null || idVentaGenerado.isEmpty()) {
+            throw new SQLException("Error al generar el ID de la venta.");
         }
+
+        return idVentaGenerado;
     }
 
     /**
