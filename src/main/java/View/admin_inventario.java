@@ -4,17 +4,98 @@
  */
 package View;
 
+import DAO.*;
+import Model.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author PERSONAL
  */
 public class admin_inventario extends javax.swing.JPanel {
+    DefaultTableModel m = new DefaultTableModel();
 
     /**
      * Creates new form admin_inventario
      */
     public admin_inventario() {
         initComponents();
+        cabecera();
+        
+        TXTadminingstockidlib.addFocusListener(new FocusAdapter(){
+            @Override
+            public void focusLost(FocusEvent e) {
+                String idlib= TXTadminingstockidlib.getText();
+                LibroDAO libdao= new LibroDAO();
+                
+                if (!idlib.isEmpty()) {
+                    try{
+                        Libro libro= libdao.obtenerPorId(idlib);
+                        if (libro != null) {
+                            TXTadminingstockidgen.setText(libro.getIdGen());
+                            TXTadminingstockididio.setText(libro.getIdIdioma());
+                            TXTadminingstockidedi.setText(libro.getIdEdito());
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Libro no Existe o no Encontrado", "TY Beyonce", JOptionPane.INFORMATION_MESSAGE);                           
+                        }                       
+                    }catch(SQLException gimme){
+                        JOptionPane.showMessageDialog(null, "Error al buscar el Libro en la BD" + gimme.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                        gimme.printStackTrace(); 
+                    }
+                }               
+            }      
+        });
+        
+        TXTadminactustockidlib.addFocusListener(new FocusAdapter(){
+            @Override
+            public void focusLost(FocusEvent e) {
+                String idlib= TXTadminactustockidlib.getText();
+                LibroDAO libdao= new LibroDAO();
+                
+                if (!idlib.isEmpty()) {
+                    try{
+                        Libro libro= libdao.obtenerPorId(idlib);
+                        if (libro != null) {
+                            TXTadminactustockidgen.setText(libro.getIdGen());
+                            TXTadminactustockididio.setText(libro.getIdIdioma());
+                            TXTadminactustockidedit.setText(libro.getIdEdito());
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Libro no Existe o no Encontrado", "TY Beyonce", JOptionPane.INFORMATION_MESSAGE);                           
+                        }                       
+                    }catch(SQLException gimme){
+                        JOptionPane.showMessageDialog(null, "Error al buscar el Libro en la BD" + gimme.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                        gimme.printStackTrace(); 
+                    }
+                }               
+            }      
+        });
+        
+        
+    }
+    
+    public void cabecera(){
+        m.addColumn("ID_LIBRO");        
+        m.addColumn("ID_EDITORIAL");
+        m.addColumn("ID_GÉNERO");
+        m.addColumn("ID_IDIOMA");
+        m.addColumn("STOCK");
+        
+        TBadminbuscstock.setModel(m);
+        
+//        TBadminbuscstock.getColumnModel().getColumn(0).setPreferredWidth(75);
+//        TBadminbuscstock.getColumnModel().getColumn(1).setPreferredWidth(80);
+//        TBadminbuscstock.getColumnModel().getColumn(2).setPreferredWidth(80);
+//        TBadminbuscstock.getColumnModel().getColumn(3).setPreferredWidth(80);
+//        TBadminbuscstock.getColumnModel().getColumn(4).setPreferredWidth(80);
+
+        
+        
+        
     }
 
     /**
@@ -114,6 +195,11 @@ public class admin_inventario extends javax.swing.JPanel {
         BTNadminingstocking.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadminingstocking.setForeground(new java.awt.Color(255, 255, 255));
         BTNadminingstocking.setText("Ingresar");
+        BTNadminingstocking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminingstockingActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -316,11 +402,21 @@ public class admin_inventario extends javax.swing.JPanel {
         BTNadminbuscstockbusc.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadminbuscstockbusc.setForeground(new java.awt.Color(255, 255, 255));
         BTNadminbuscstockbusc.setText("Buscar");
+        BTNadminbuscstockbusc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminbuscstockbuscActionPerformed(evt);
+            }
+        });
 
         BTNadminbuscstockelim.setBackground(new java.awt.Color(178, 118, 211));
         BTNadminbuscstockelim.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadminbuscstockelim.setForeground(new java.awt.Color(255, 255, 255));
         BTNadminbuscstockelim.setText("Eliminar");
+        BTNadminbuscstockelim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminbuscstockelimActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -374,8 +470,128 @@ public class admin_inventario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BTNadminactustockactuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminactustockactuActionPerformed
-        // TODO add your handling code here:
+        // segundo panel
+        String idlib= TXTadminactustockidlib.getText();
+        String idgen= TXTadminactustockidgen.getText();
+        String ididi= TXTadminactustockididio.getText();
+        String idedi= TXTadminactustockidedit.getText();
+        int stock= Integer.parseInt(TXTactustockstock.getText());
+        
+        InventarioDAO invdao= new InventarioDAO();
+        
+        if (!idlib.isEmpty() && !(stock == 0)) {
+            Inventario inven= new Inventario(idlib, idgen, ididi, idedi, stock);
+            try{               
+                invdao.actualizar(inven);
+                JOptionPane.showMessageDialog(this, "Stock actuaizado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);              
+            }catch(SQLException borro){
+                JOptionPane.showMessageDialog(this, "Error al actualizar el Stock" + borro.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                borro.printStackTrace();                 
+            }           
+        }else{
+            JOptionPane.showMessageDialog(this, "Rellenar todos los campos", "Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
     }//GEN-LAST:event_BTNadminactustockactuActionPerformed
+
+    private void BTNadminingstockingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminingstockingActionPerformed
+        // primer panel
+        String idlib= TXTadminingstockidlib.getText();
+        String idgen= TXTadminingstockidgen.getText();
+        String ididi= TXTadminingstockididio.getText();
+        String idedi= TXTadminingstockidedi.getText();
+        int stock= Integer.parseInt(TXTadminingstockstock.getText());
+        
+        InventarioDAO invdao= new InventarioDAO();      
+        
+        if (!idlib.isEmpty() && !idgen.isEmpty() && !ididi.isEmpty() && !idedi.isEmpty() && !(stock == 0)) {
+            Inventario inginv= new Inventario(idlib, idgen, ididi, idedi, stock); 
+            
+            try{
+                invdao.guardar(inginv);
+                JOptionPane.showMessageDialog(this, "Inventario ingresado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);
+                
+            }catch(SQLException ame){
+                JOptionPane.showMessageDialog(this, "Error al ingresar el Inventario" + ame.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                ame.printStackTrace();                
+            }           
+        }else{
+            JOptionPane.showMessageDialog(this, "Rellenar todos los campos", "Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
+            
+        }        
+    }//GEN-LAST:event_BTNadminingstockingActionPerformed
+
+    private void BTNadminbuscstockbuscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminbuscstockbuscActionPerformed
+        // TODO add your handling code here:
+        String idlib= TXTadminbuscstockidlib.getText();
+        LibroDAO libdao= new LibroDAO();
+        InventarioDAO invdao= new InventarioDAO();
+        EditorialDAO editdao= new EditorialDAO();
+        GeneroDAO gendao= new GeneroDAO();
+        IdiomaDAO ididao= new IdiomaDAO();
+        
+        m.setRowCount(0);
+        
+        try{
+            if (!idlib.isEmpty()) {//si el textfield no esta vacio
+                Inventario invbuscado= invdao.obtenerPorId(idlib);   
+                if (invbuscado != null) {
+                    Editorial edit= editdao.obtenerPorId(invbuscado.getIdEdito());
+                    Genero gen= gendao.obtenerPorId(invbuscado.getIdGen());
+                    Idioma idi= ididao.obtenerPorId(invbuscado.getIdIdioma());               
+
+                    Object[] invdatos= {invbuscado.getIdLibro(), gen.getGenero(), idi.getIdioma(), edit.getNomEdito(),
+                    invbuscado.getStock()};
+
+                    m.addRow(invdatos);                    
+                }else{
+                    JOptionPane.showMessageDialog(this, "No se encontro el Inventario o No Existe", "Por favor no", JOptionPane.WARNING_MESSAGE);                                 
+                }                               
+            }else{
+                List <Inventario> allstock= invdao.obtenerTodos();
+                
+                for(Inventario inventario : allstock){
+                    Editorial edit= editdao.obtenerPorId(inventario.getIdEdito());
+                    Genero gen= gendao.obtenerPorId(inventario.getIdGen());
+                    Idioma idi= ididao.obtenerPorId(inventario.getIdIdioma());
+                    
+                    Object[] invdatos2= {inventario.getIdLibro(), gen.getGenero(), idi.getIdioma(), edit.getNomEdito(),
+                    inventario.getStock()};
+                    
+                    m.addRow(invdatos2);                   
+                }
+            }         
+        }catch(SQLException saviorofsong){
+            JOptionPane.showMessageDialog(this, "Problemas con la BD" + saviorofsong.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+            saviorofsong.printStackTrace();             
+        }
+        TXTadminbuscstockidlib.setText("");
+        
+    }//GEN-LAST:event_BTNadminbuscstockbuscActionPerformed
+
+    private void BTNadminbuscstockelimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminbuscstockelimActionPerformed
+        // TODO add your handling code here:
+        int fila= TBadminbuscstock.getSelectedRow();
+        String idlibelim= TBadminbuscstock.getModel().getValueAt(fila, 0).toString();
+        
+        InventarioDAO invendao= new InventarioDAO();
+        
+        try{
+            int confirm= JOptionPane.showConfirmDialog(this, "Confirmar Eliminación de Inventario: "+ idlibelim, "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                invendao.eliminar(idlibelim);
+                JOptionPane.showMessageDialog(this, "Stock eliminado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);                              
+            }else{
+                JOptionPane.showMessageDialog(this, "Eliminación Cancelada", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);                                             
+            }             
+        }catch(SQLException nopuedeser){
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar el Stock debido a problemas con la BD" + nopuedeser.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+            nopuedeser.printStackTrace();            
+        }
+        TXTadminbuscstockidlib.setText("");
+        
+    }//GEN-LAST:event_BTNadminbuscstockelimActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

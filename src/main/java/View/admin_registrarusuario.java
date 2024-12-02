@@ -4,17 +4,31 @@
  */
 package View;
 
+import Controler.*;
+import DAO.UsuarioDAO;
+import Model.Usuario;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+
 /**
  *
  * @author PERSONAL
  */
 public class admin_registrarusuario extends javax.swing.JPanel {
+    DefaultTableModel a = new DefaultTableModel();
 
     /**
      * Creates new form admin_registrarusuario
      */
     public admin_registrarusuario() {
         initComponents();
+        
+    }
+    
+    public void largocabecera(){
+        
         
     }
     
@@ -61,7 +75,7 @@ public class admin_registrarusuario extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         TXTadminbuscaridusu = new javax.swing.JTextField();
         BTNadminbuscbusc = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        BTNadminbuselimusu = new javax.swing.JButton();
 
         jTextField4.setText("jTextField4");
 
@@ -121,6 +135,11 @@ public class admin_registrarusuario extends javax.swing.JPanel {
         BTNadminregreg.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadminregreg.setForeground(new java.awt.Color(255, 255, 255));
         BTNadminregreg.setText("Registrar");
+        BTNadminregreg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminregregActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -230,6 +249,11 @@ public class admin_registrarusuario extends javax.swing.JPanel {
         BTNadminactuactu.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadminactuactu.setForeground(new java.awt.Color(255, 255, 255));
         BTNadminactuactu.setText("Actualizar");
+        BTNadminactuactu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminactuactuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -289,7 +313,7 @@ public class admin_registrarusuario extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        TBadminbustablausuarios.setBackground(new java.awt.Color(204, 204, 204));
+        TBadminbustablausuarios.setBackground(new java.awt.Color(224, 224, 224));
         TBadminbustablausuarios.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         TBadminbustablausuarios.setForeground(new java.awt.Color(51, 51, 51));
         TBadminbustablausuarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -303,6 +327,8 @@ public class admin_registrarusuario extends javax.swing.JPanel {
                 "ID Usuario", "Usuario", "Contraseña", "Rango", "ID Empleado"
             }
         ));
+        TBadminbustablausuarios.setGridColor(new java.awt.Color(153, 102, 255));
+        TBadminbustablausuarios.setSelectionBackground(new java.awt.Color(153, 102, 255));
         jScrollPane1.setViewportView(TBadminbustablausuarios);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -316,11 +342,21 @@ public class admin_registrarusuario extends javax.swing.JPanel {
         BTNadminbuscbusc.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadminbuscbusc.setForeground(new java.awt.Color(255, 255, 255));
         BTNadminbuscbusc.setText("Buscar");
+        BTNadminbuscbusc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminbuscbuscActionPerformed(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(179, 120, 211));
-        jButton2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Eliminar");
+        BTNadminbuselimusu.setBackground(new java.awt.Color(179, 120, 211));
+        BTNadminbuselimusu.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        BTNadminbuselimusu.setForeground(new java.awt.Color(255, 255, 255));
+        BTNadminbuselimusu.setText("Eliminar");
+        BTNadminbuselimusu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminbuselimusuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -339,7 +375,7 @@ public class admin_registrarusuario extends javax.swing.JPanel {
                 .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(260, 260, 260)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BTNadminbuselimusu, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -353,7 +389,7 @@ public class admin_registrarusuario extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BTNadminbuselimusu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
 
@@ -371,10 +407,144 @@ public class admin_registrarusuario extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BTNadminregregActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminregregActionPerformed
+        // obtener texto del testfield
+        String idusu= TXTadminregidusu.getText();
+        String usu= TXTadminregusu.getText();
+        String contra= TXTadminregcontra.getText();
+        String range= TXTadminregrang.getText();
+        String idemp= TXTadminregidemp.getText();
+        
+        CUsuario cusu= new CUsuario();
+        
+        if (!idusu.isEmpty()&&!usu.isEmpty()&&!contra.isEmpty()&&!range.isEmpty()&&!idemp.isEmpty()) {
+                Usuario newusuario= new Usuario(idusu, usu, contra, range, idemp);  
+                
+            try{
+                cusu.registrarUsuario(newusuario);
+                JOptionPane.showMessageDialog(this, "Usuario ingresado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);                
+            }catch(SQLException porfafunciona){
+                JOptionPane.showMessageDialog(this, "Error al ingresar el Usuario" + porfafunciona.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                porfafunciona.printStackTrace();
+            }
+            }else{
+                JOptionPane.showMessageDialog(this, "Rellenar todos los campos", "Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
+               }
+        
+        
+        TXTadminregidusu.setText("");
+        TXTadminregusu.setText("");
+        TXTadminregcontra.setText("");
+        TXTadminregrang.setText("");
+        TXTadminregidemp.setText("");
+    }//GEN-LAST:event_BTNadminregregActionPerformed
+
+    private void BTNadminactuactuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminactuactuActionPerformed
+        // obtener texto del testfield
+        String idusu= TXTadminactuidusu.getText();
+        String usu= TXTadminactuusu.getText();
+        String contra= TXTadminactucontra.getText();
+        String range= TXTadminacturang.getText();
+        String idemp= TXTadminactuidemp.getText();
+        
+        CUsuario cusu= new CUsuario();       
+        
+        
+        if (!idusu.isEmpty()&&!usu.isEmpty()&&!contra.isEmpty()&&!range.isEmpty()&&!idemp.isEmpty()) { 
+            try{
+                Usuario actuusu= cusu.obtenerUsuarioPorId(idusu);//guardar en un objeto usuario
+                actuusu.setUsuario(usu);//actualizar
+                actuusu.setContrasena(contra);
+                actuusu.setRango(range);
+                actuusu.setIdEmp(idemp);
+                cusu.actualizarUsuario(actuusu);  
+                JOptionPane.showMessageDialog(this, "Usuario actualizado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);
+            }catch(SQLException deviltrigger){
+                JOptionPane.showMessageDialog(this, "Error al actualizar el Usuario" + deviltrigger.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                deviltrigger.printStackTrace();                
+            }       
+            }else{
+                JOptionPane.showMessageDialog(this, "Rellenar todos los campos", "Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
+                } 
+        
+        TXTadminactuidusu.setText("");
+        TXTadminactuusu.setText("");
+        TXTadminactucontra.setText("");
+        TXTadminacturang.setText("");
+        TXTadminactuidemp.setText("");
+        
+    }//GEN-LAST:event_BTNadminactuactuActionPerformed
+
+    private void BTNadminbuscbuscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminbuscbuscActionPerformed
+        // love u beyonce
+        String idusu= TXTadminbuscaridusu.getText();
+        CUsuario cusu= new CUsuario();
+        UsuarioDAO usudao= new UsuarioDAO();
+        DefaultTableModel a= (DefaultTableModel) TBadminbustablausuarios.getModel();
+        a.setRowCount(0);
+        
+        //TBadminbustablausuarios
+        
+            try{
+                if (!idusu.isEmpty()) {//id usuario no esta vacio
+                    Usuario buscado= cusu.obtenerUsuarioPorId(idusu); 
+                    if (buscado != null) {
+                        Object[] datos= {buscado.getIdUsuario(), buscado.getUsuario(), buscado.getContrasena(),
+                        buscado.getRango(), buscado.getIdEmp()};
+                    
+                        a.addRow(datos);               
+                    }else{
+                        JOptionPane.showMessageDialog(this, "No se encontro el Usuario o No Existe", "Por favor no", JOptionPane.WARNING_MESSAGE);                        
+                    }
+                                                          
+                }else{//id usuario esta vacio
+                    List<Usuario> allusers= usudao.obtenerTodos();
+                    for(Usuario usuario: allusers){
+                        Object[] datos2= {usuario.getIdUsuario(), usuario.getUsuario(), usuario.getContrasena(),
+                        usuario.getRango(), usuario.getIdEmp()};
+                        
+                        a.addRow(datos2);                       
+                    }                  
+                }
+                              
+            }catch(SQLException papermoon){
+                JOptionPane.showMessageDialog(this, "Problemas con la BD" + papermoon.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+                papermoon.printStackTrace(); 
+                TXTadminbuscaridusu.setText("");                
+            }
+           
+        
+    }//GEN-LAST:event_BTNadminbuscbuscActionPerformed
+
+    private void BTNadminbuselimusuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminbuselimusuActionPerformed
+        // idusu columna 0
+        DefaultTableModel a= (DefaultTableModel) TBadminbustablausuarios.getModel();
+        int fila= TBadminbustablausuarios.getSelectedRow();
+        String idusu= TBadminbustablausuarios.getModel().getValueAt(fila, 0).toString();
+        
+        CUsuario cusu= new CUsuario();
+        
+        try{
+            int confirm= JOptionPane.showConfirmDialog(this, "Confirmar Eliminación del Usuario: "+ idusu, "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {//confirmar la eliminacion del usuario, por si ns seleccionan mal
+                cusu.eliminarUsuario(idusu);
+                JOptionPane.showMessageDialog(this, "Usuario eliminado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);               
+            }else{
+                JOptionPane.showMessageDialog(this, "Eliminación Cancelada", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);                               
+            }
+                       
+        }catch(SQLException laragedupeuple){
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar el Usuario" + laragedupeuple.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+            laragedupeuple.printStackTrace(); 
+        }
+        
+    }//GEN-LAST:event_BTNadminbuselimusuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTNadminactuactu;
     private javax.swing.JButton BTNadminbuscbusc;
+    private javax.swing.JButton BTNadminbuselimusu;
     private javax.swing.JButton BTNadminregreg;
     private javax.swing.JTabbedPane TBPpaneladmin;
     private javax.swing.JTable TBadminbustablausuarios;
@@ -389,7 +559,6 @@ public class admin_registrarusuario extends javax.swing.JPanel {
     private javax.swing.JTextField TXTadminregidusu;
     private javax.swing.JTextField TXTadminregrang;
     private javax.swing.JTextField TXTadminregusu;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

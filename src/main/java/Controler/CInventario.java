@@ -16,14 +16,14 @@ public class CInventario {
         this.inventarioDAO = new InventarioDAO();
     }
 
-    public void actualizarStock(String idLibro, int cantidad) throws SQLException {
-        Libro libro = libroDAO.obtenerPorId(idLibro);
-        if (libro != null) {
-            double nuevoStock = libro.getPrecio() + cantidad;
-            libro.setPrecio(nuevoStock);
-            libroDAO.actualizar(libro);
-        }
-    }
+//    public void actualizarStock(String idLibro, int cantidad) throws SQLException {
+//        Libro libro = libroDAO.obtenerPorId(idLibro);
+//        if (libro != null) {
+//            double nuevoStock = libro.getPrecio() + cantidad;
+//            libro.setPrecio(nuevoStock);
+//            libroDAO.actualizar(libro);
+//        }
+//    }
 
     public int consultarStock(String idLibro) throws SQLException {
         Inventario inventario = inventarioDAO.obtenerPorId(idLibro); // Usamos el DAO de Inventario para obtener el stock

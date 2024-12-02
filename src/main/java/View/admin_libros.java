@@ -4,17 +4,84 @@
  */
 package View;
 
+import DAO.*;
+import Model.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author PERSONAL
  */
 public class admin_libros extends javax.swing.JPanel {
+    DefaultTableModel m = new DefaultTableModel();
 
     /**
      * Creates new form admin_libros
      */
     public admin_libros() {
         initComponents();
+        cabecera();
+        
+        TXTadminactulibidlib.addFocusListener(new FocusAdapter() {
+    @Override
+    public void focusLost(FocusEvent e) {
+        String idlib= TXTadminactulibidlib.getText();
+        LibroDAO libdao= new LibroDAO();
+        
+        if (!idlib.isEmpty()) {
+            System.out.println("Hay algo en el txtfield p");
+            try{
+                Libro autolib= libdao.obtenerPorId(idlib);
+                if (autolib != null) {//si es q el txtfield no esta vacio y el libro existe
+                    TXTadminactulibtitu.setText(autolib.getTitulo());
+                    TXTadminactulibpre.setText(String.valueOf(autolib.getPrecio()));
+                    TXTadminactulibidaut.setText(autolib.getIdAutor());
+                    TXTadminactulibidedit.setText(autolib.getIdEdito());
+                    TXTadminactulibidgen.setText(autolib.getIdGen());
+                    TXTadminactulibididio.setText(autolib.getIdIdioma());   
+                    System.out.println("Libro encontrado");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Libro no Existe o no Encontrado", "TY Beyonce", JOptionPane.INFORMATION_MESSAGE);
+                }
+                
+           }catch(SQLException intentalo){//problemas con la base de datos
+               JOptionPane.showMessageDialog(null, "Error al buscar el Libro" + intentalo.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                intentalo.printStackTrace(); 
+                
+            }
+            
+        }
+      
+    }
+});
+    }
+    
+    public void cabecera(){
+        m.addColumn("ID_LIBRO");
+        m.addColumn("TÍTULO");
+        m.addColumn("PRECIO");
+        m.addColumn("ID_AUTOR");
+        m.addColumn("ID_EDITORIAL");
+        m.addColumn("ID_GÉNERO");
+        m.addColumn("ID_IDIOMA");
+        
+        TBadminbuscarlib.setModel(m);
+        
+        TBadminbuscarlib.getColumnModel().getColumn(0).setPreferredWidth(75);
+        TBadminbuscarlib.getColumnModel().getColumn(1).setPreferredWidth(150);
+        TBadminbuscarlib.getColumnModel().getColumn(2).setPreferredWidth(80);
+        TBadminbuscarlib.getColumnModel().getColumn(3).setPreferredWidth(80);
+        TBadminbuscarlib.getColumnModel().getColumn(4).setPreferredWidth(80);
+        TBadminbuscarlib.getColumnModel().getColumn(5).setPreferredWidth(85);
+        TBadminbuscarlib.getColumnModel().getColumn(6).setPreferredWidth(80);
+        
+        
+        
     }
 
     /**
@@ -54,7 +121,7 @@ public class admin_libros extends javax.swing.JPanel {
         TXTadminactulibidlib = new javax.swing.JTextField();
         TXTadminactulibtitu = new javax.swing.JTextField();
         TXTadminactulibpre = new javax.swing.JTextField();
-        TXTadminactulibidautor = new javax.swing.JTextField();
+        TXTadminactulibidaut = new javax.swing.JTextField();
         TXTadminactulibidedit = new javax.swing.JTextField();
         TXTadminactulibidgen = new javax.swing.JTextField();
         TXTadminactulibididio = new javax.swing.JTextField();
@@ -141,6 +208,11 @@ public class admin_libros extends javax.swing.JPanel {
         BTNadmininglibing.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadmininglibing.setForeground(new java.awt.Color(255, 255, 255));
         BTNadmininglibing.setText("Ingresar");
+        BTNadmininglibing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadmininglibingActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -264,10 +336,10 @@ public class admin_libros extends javax.swing.JPanel {
         TXTadminactulibpre.setForeground(new java.awt.Color(51, 51, 51));
         TXTadminactulibpre.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.gray));
 
-        TXTadminactulibidautor.setBackground(new java.awt.Color(204, 204, 204));
-        TXTadminactulibidautor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        TXTadminactulibidautor.setForeground(new java.awt.Color(51, 51, 51));
-        TXTadminactulibidautor.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.gray));
+        TXTadminactulibidaut.setBackground(new java.awt.Color(204, 204, 204));
+        TXTadminactulibidaut.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        TXTadminactulibidaut.setForeground(new java.awt.Color(51, 51, 51));
+        TXTadminactulibidaut.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.gray));
 
         TXTadminactulibidedit.setBackground(new java.awt.Color(204, 204, 204));
         TXTadminactulibidedit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -288,6 +360,11 @@ public class admin_libros extends javax.swing.JPanel {
         BTNadminactulibactu.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadminactulibactu.setForeground(new java.awt.Color(255, 255, 255));
         BTNadminactulibactu.setText("Actualizar");
+        BTNadminactulibactu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminactulibactuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -311,7 +388,7 @@ public class admin_libros extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel12)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TXTadminactulibidautor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TXTadminactulibidaut, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel13)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -358,7 +435,7 @@ public class admin_libros extends javax.swing.JPanel {
                         .addGap(21, 21, 21)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(TXTadminactulibidautor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(TXTadminactulibidaut, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(167, 167, 167)
                         .addComponent(BTNadminactulibactu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -399,11 +476,21 @@ public class admin_libros extends javax.swing.JPanel {
         BTNadminbuscalibbuscar.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadminbuscalibbuscar.setForeground(new java.awt.Color(255, 255, 255));
         BTNadminbuscalibbuscar.setText("Buscar");
+        BTNadminbuscalibbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminbuscalibbuscarActionPerformed(evt);
+            }
+        });
 
         BTNadminbuscarlibelim.setBackground(new java.awt.Color(178, 118, 211));
         BTNadminbuscarlibelim.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         BTNadminbuscarlibelim.setForeground(new java.awt.Color(255, 255, 255));
         BTNadminbuscarlibelim.setText("Eliminar");
+        BTNadminbuscarlibelim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNadminbuscarlibelimActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -456,6 +543,148 @@ public class admin_libros extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BTNadmininglibingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadmininglibingActionPerformed
+        // TODO add your handling code here:
+        String idlib= TXTadminlibingidlib.getText();
+        String titu= TXTadmininglibtitu.getText();
+        double pre= Double.parseDouble(TXTadmininglibpre.getText());
+        String idaut= TXTadmininglibidautor.getText();
+        String idedit= TXTadmininglibidedit.getText();
+        String idgen= TXTadmininglibidgen.getText();
+        String ididio= TXTadmininglibididio.getText();
+        
+        LibroDAO libdao= new LibroDAO();
+
+        if (!idlib.isEmpty() && !titu.isEmpty() && !(pre == 0.0) && !idaut.isEmpty() && !idedit.isEmpty() && !idgen.isEmpty() && !ididio.isEmpty()) {
+            Libro newbook= new Libro(idlib, titu, pre, idaut, idedit, idgen, ididio);
+            
+            try{
+                libdao.guardar(newbook);
+                JOptionPane.showMessageDialog(this, "Libro ingresado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);                                                            
+            }catch(SQLException goliat){//problemas con la BD
+                JOptionPane.showMessageDialog(this, "Error al ingresar el Libro" + goliat.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                goliat.printStackTrace();           
+            }            
+            }else{
+                JOptionPane.showMessageDialog(this, "Rellenar todos los campos", "Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
+           
+            }
+        TXTadminlibingidlib.setText("");
+        TXTadmininglibtitu.setText("");
+        TXTadmininglibpre.setText("");
+        TXTadmininglibidautor.setText("");
+        TXTadmininglibidedit.setText("");
+        TXTadmininglibidgen.setText("");
+        TXTadmininglibididio.setText("");
+    }//GEN-LAST:event_BTNadmininglibingActionPerformed
+
+    private void BTNadminactulibactuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminactulibactuActionPerformed
+        // TODO add your handling code here:
+        String idlib= TXTadminactulibidlib.getText();
+        String titu= TXTadminactulibtitu.getText();
+        double pre= Double.parseDouble(TXTadminactulibpre.getText());
+        String idaut= TXTadminactulibidaut.getText();
+        String idedit= TXTadminactulibidedit.getText();
+        String idgen= TXTadminactulibidgen.getText();
+        String ididio= TXTadminactulibididio.getText();
+        
+        LibroDAO libdao= new LibroDAO();
+        
+        if (!idlib.isEmpty() && !titu.isEmpty() && !(pre == 0.0) && !idaut.isEmpty() && !idedit.isEmpty() && !idgen.isEmpty() && !ididio.isEmpty()) {
+            try{
+                Libro libactu= libdao.obtenerPorId(idlib);//guardar en objeto Libro
+                libactu.setTitulo(titu);
+                libactu.setPrecio(pre);
+                libactu.setIdAutor(idaut);
+                libactu.setIdEdito(idedit);
+                libactu.setIdGen(idgen);
+                libactu.setIdIdioma(ididio);
+
+                libdao.actualizar(libactu);
+                JOptionPane.showMessageDialog(this, "Libro actuaizado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);                                                                     
+            }catch(SQLException ahri){
+                JOptionPane.showMessageDialog(this, "Error al actualizar el Libro" + ahri.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                ahri.printStackTrace(); 
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Rellenar todos los campos", "Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_BTNadminactulibactuActionPerformed
+
+    private void BTNadminbuscalibbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminbuscalibbuscarActionPerformed
+        // TODO add your handling code here:
+        String idlib= TXTadminbuscarlibidlib.getText();
+        LibroDAO libdao= new LibroDAO();
+        AutorDAO autdao= new AutorDAO();
+        EditorialDAO editdao= new EditorialDAO();
+        GeneroDAO gendao= new GeneroDAO();
+        IdiomaDAO ididao= new IdiomaDAO();
+        
+        m.setRowCount(0);       
+        
+        try{      
+            if (!idlib.isEmpty()) {//si hay algo en el textfield
+                Libro libbuscado= libdao.obtenerPorId(idlib);
+                if (libbuscado != null) {
+                    Libro lib= libdao.obtenerPorId(idlib);
+                    Autor aut= autdao.obtenerPorId(lib.getIdAutor());//sacar el id del campo del objeto lib creado
+                    Editorial edit= editdao.obtenerPorId(lib.getIdEdito());
+                    Genero gen= gendao.obtenerPorId(lib.getIdGen());
+                    Idioma idi= ididao.obtenerPorId(lib.getIdIdioma());
+                  
+                    Object[] libdatos= {libbuscado.getIdLibro(), libbuscado.getTitulo(), libbuscado.getPrecio(), 
+                    aut.getNomAutor(), edit.getNomEdito(), gen.getGenero(), idi.getIdioma()};
+                    
+                    m.addRow(libdatos);
+                }else{
+                    JOptionPane.showMessageDialog(this, "No se encontro el Libro o No Existe", "Por favor no", JOptionPane.WARNING_MESSAGE);
+                }
+            }else{//si no hay nada en el textfield
+                List <Libro> allbooks= libdao.obtenerTodos();
+                
+                for(Libro libro: allbooks ){                   
+                    Autor aut= autdao.obtenerPorId(libro.getIdAutor());
+                    Editorial edit= editdao.obtenerPorId(libro.getIdEdito());
+                    Genero gen= gendao.obtenerPorId(libro.getIdGen());
+                    Idioma idi= ididao.obtenerPorId(libro.getIdIdioma());
+                  
+                    Object[] libdatos= {libro.getIdLibro(), libro.getTitulo(), libro.getPrecio(), 
+                    aut.getNomAutor(), edit.getNomEdito(), gen.getGenero(), idi.getIdioma()};
+                    
+                    m.addRow(libdatos);                    
+                }
+            }
+        }catch(SQLException besosalaire){
+            JOptionPane.showMessageDialog(this, "Problemas con la BD" + besosalaire.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+            besosalaire.printStackTrace(); 
+        }
+        TXTadminbuscarlibidlib.setText(""); 
+    }//GEN-LAST:event_BTNadminbuscalibbuscarActionPerformed
+
+    private void BTNadminbuscarlibelimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNadminbuscarlibelimActionPerformed
+        // TODO add your handling code here:
+        int fila= TBadminbuscarlib.getSelectedRow();
+        String idlibelim= TBadminbuscarlib.getModel().getValueAt(fila, 0).toString();
+        
+        LibroDAO libdao= new LibroDAO();
+        
+        try{
+            int confirm= JOptionPane.showConfirmDialog(this, "Confirmar Eliminación de Libro: "+ idlibelim, "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                libdao.eliminar(idlibelim);
+                JOptionPane.showMessageDialog(this, "Libro eliminado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);                              
+            }else{
+                JOptionPane.showMessageDialog(this, "Eliminación Cancelada", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);                                             
+            }         
+        }catch(SQLException blueheart){
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar el Libro debido a problemas con la BD" + blueheart.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+            blueheart.printStackTrace();            
+        }
+        TXTadminbuscarlibidlib.setText("");                
+    }//GEN-LAST:event_BTNadminbuscarlibelimActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTNadminactulibactu;
@@ -463,7 +692,7 @@ public class admin_libros extends javax.swing.JPanel {
     private javax.swing.JButton BTNadminbuscarlibelim;
     private javax.swing.JButton BTNadmininglibing;
     private javax.swing.JTable TBadminbuscarlib;
-    private javax.swing.JTextField TXTadminactulibidautor;
+    private javax.swing.JTextField TXTadminactulibidaut;
     private javax.swing.JTextField TXTadminactulibidedit;
     private javax.swing.JTextField TXTadminactulibidgen;
     private javax.swing.JTextField TXTadminactulibididio;
