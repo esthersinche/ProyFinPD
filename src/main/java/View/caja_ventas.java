@@ -1,30 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package View;
-import DAO.AutorDAO;
-import DAO.EditorialDAO;
-import DAO.GeneroDAO;
-import DAO.IdiomaDAO;
-import DAO.LibroDAO;
-import Model.Autor;
-import Model.Editorial;
-import Model.Genero;
-import Model.Idioma;
-import Model.Libro;
-import java.util.List;
-import javax.swing.JOptionPane;
+
+import Controler.*;
+import DAO.*;
+import Model.*;
+import java.awt.CardLayout;
+import java.awt.event.*;
+import java.sql.SQLException;
+import java.util.*;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class caja_ventas extends javax.swing.JPanel {
+
+    private List<DetVenta> listaDeDetalles;
     DefaultTableModel m = new DefaultTableModel();
+    DefaultTableModel n = new DefaultTableModel();
+    private String idVen;
+
     public caja_ventas() {
         initComponents();
-        mostrarCabecera();
+        mostrarCabecera1();
+        mostrarCabecera2();
+        obtenerIdVenta();
+        listaDeDetalles = new ArrayList<>();
+
+        txtCantidad.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    calcularPrecio();
+                }
+            }
+        });
+
     }
-    
-    public void mostrarCabecera(){
+
+    public void obtenerIdVenta() {
+        // Generate a new ID or fetch it from DB
+        this.idVen = UUID.randomUUID().toString().substring(0, 5);
+    }
+
+    public void mostrarCabecera1() {
         m.addColumn("id");
         m.addColumn("Titulo");
         m.addColumn("Precio");
@@ -34,7 +50,15 @@ public class caja_ventas extends javax.swing.JPanel {
         m.addColumn("Idioma");
         tblLibros.setModel(m);
     }
-    
+
+    public void mostrarCabecera2() {
+        n.addColumn("Id_Libro");
+        n.addColumn("Cantidad");
+        n.addColumn("Precio");
+        n.addColumn("Subtotal");
+        tblVenta.setModel(n);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,18 +77,15 @@ public class caja_ventas extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         txtDni = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblVenta = new javax.swing.JTable();
         jLabel16 = new javax.swing.JLabel();
-        txtDni1 = new javax.swing.JTextField();
+        txtCodLib = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnVender = new javax.swing.JButton();
-        pnlRegistroVentasSinCli = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jLabel18 = new javax.swing.JLabel();
-        txtDni3 = new javax.swing.JTextField();
-        btnVenderSinCli = new javax.swing.JButton();
-        btnAddSinCli = new javax.swing.JButton();
+        lblCantidad = new javax.swing.JLabel();
+        lblPrecio = new javax.swing.JLabel();
+        txtPrecio = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -114,7 +135,7 @@ public class caja_ventas extends javax.swing.JPanel {
                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         pnlCliente.addTab("Listar Libros", pnlListarLibros);
@@ -127,7 +148,7 @@ public class caja_ventas extends javax.swing.JPanel {
 
         txtDni.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -138,13 +159,13 @@ public class caja_ventas extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblVenta);
 
         jLabel16.setFont(new java.awt.Font("Eras Bold ITC", 1, 18)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("Codigo del libro:");
 
-        txtDni1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCodLib.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         btnAdd.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
         btnAdd.setText("Añadir");
@@ -163,34 +184,51 @@ public class caja_ventas extends javax.swing.JPanel {
             }
         });
 
+        lblCantidad.setFont(new java.awt.Font("Eras Bold ITC", 1, 18)); // NOI18N
+        lblCantidad.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCantidad.setText("Cantidad:");
+
+        lblPrecio.setFont(new java.awt.Font("Eras Bold ITC", 1, 18)); // NOI18N
+        lblPrecio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblPrecio.setText("Precio:");
+
+        txtPrecio.setEditable(false);
+        txtPrecio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout pnlRegistroVentaCliLayout = new javax.swing.GroupLayout(pnlRegistroVentaCli);
         pnlRegistroVentaCli.setLayout(pnlRegistroVentaCliLayout);
         pnlRegistroVentaCliLayout.setHorizontalGroup(
             pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlRegistroVentaCliLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlRegistroVentaCliLayout.createSequentialGroup()
-                        .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(29, 29, 29)
-                        .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDni1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(117, 117, 117)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegistroVentaCliLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(265, 265, 265))
+            .addGroup(pnlRegistroVentaCliLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlRegistroVentaCliLayout.createSequentialGroup()
+                        .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlRegistroVentaCliLayout.createSequentialGroup()
+                                .addComponent(txtCodLib, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(112, 112, 112)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        pnlRegistroVentaCliLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel15, jLabel16});
+        pnlRegistroVentaCliLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel15, jLabel16, lblCantidad, lblPrecio});
 
-        pnlRegistroVentaCliLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtDni, txtDni1});
+        pnlRegistroVentaCliLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtCodLib, txtDni, txtPrecio});
 
         pnlRegistroVentaCliLayout.setVerticalGroup(
             pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,95 +237,32 @@ public class caja_ventas extends javax.swing.JPanel {
                 .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCodLib, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd))
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCantidad))
+                .addGap(12, 12, 12)
                 .addGroup(pnlRegistroVentaCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtDni1)
-                    .addComponent(btnAdd))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVender)
                 .addGap(17, 17, 17))
         );
 
-        pnlCliente.addTab("Registrar Ventas con Cliente", pnlRegistroVentaCli);
+        pnlRegistroVentaCliLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel15, jLabel16, lblCantidad, lblPrecio});
 
-        pnlRegistroVentasSinCli.setBackground(new java.awt.Color(255, 255, 255));
+        pnlRegistroVentaCliLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtCodLib, txtPrecio});
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable3);
-
-        jLabel18.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel18.setText("Codigo del libro:");
-
-        txtDni3.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
-
-        btnVenderSinCli.setBackground(new java.awt.Color(187, 142, 211));
-        btnVenderSinCli.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
-        btnVenderSinCli.setForeground(new java.awt.Color(255, 255, 255));
-        btnVenderSinCli.setText("Vender");
-        btnVenderSinCli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVenderSinCliActionPerformed(evt);
-            }
-        });
-
-        btnAddSinCli.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
-        btnAddSinCli.setText("Añadir");
-        btnAddSinCli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddSinCliActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlRegistroVentasSinCliLayout = new javax.swing.GroupLayout(pnlRegistroVentasSinCli);
-        pnlRegistroVentasSinCli.setLayout(pnlRegistroVentasSinCliLayout);
-        pnlRegistroVentasSinCliLayout.setHorizontalGroup(
-            pnlRegistroVentasSinCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlRegistroVentasSinCliLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel18)
-                .addGap(18, 18, 18)
-                .addComponent(txtDni3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAddSinCli)
-                .addGap(34, 34, 34))
-            .addGroup(pnlRegistroVentasSinCliLayout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegistroVentasSinCliLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVenderSinCli, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(252, 252, 252))
-        );
-        pnlRegistroVentasSinCliLayout.setVerticalGroup(
-            pnlRegistroVentasSinCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlRegistroVentasSinCliLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(pnlRegistroVentasSinCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtDni3)
-                    .addComponent(btnAddSinCli))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVenderSinCli)
-                .addGap(20, 20, 20))
-        );
-
-        pnlCliente.addTab("Registrar Ventas sin Cliente", pnlRegistroVentasSinCli);
+        pnlCliente.addTab("Registrar Venta", pnlRegistroVentaCli);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -307,6 +282,99 @@ public class caja_ventas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+        // Crear instancias de los controladores necesarios
+        CVentas controladorVentas = new CVentas();
+        CCliente controladorClientes = new CCliente(); // Controlador para manejar clientes
+
+        try {
+
+            // Validar el DNI
+            String dniClienteStr = txtDni.getText().trim();
+            if (dniClienteStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese el DNI del cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validar que el DNI sea un número
+            int dniCliente;
+            try {
+                dniCliente = Integer.parseInt(dniClienteStr);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El DNI debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Buscar cliente
+            Cliente clienteSeleccionado = controladorClientes.obtenerClientePorDni(dniCliente);
+            if (clienteSeleccionado == null) {
+                JOptionPane.showMessageDialog(this, "No se encontró un cliente con el DNI proporcionado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validar lista de detalles
+            if (listaDeDetalles == null || listaDeDetalles.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No hay productos en la lista de venta.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Procesar la venta y obtener el ID generado
+            String idVentaGenerado = controladorVentas.procesarVenta(clienteSeleccionado, listaDeDetalles);
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Venta registrada con éxito. ID de la venta: " + idVentaGenerado);
+
+            // Mostrar el panel con el resumen de la venta usando el ID generado
+            mostrarResumenVenta(idVentaGenerado);
+
+            // Limpiar formulario de venta
+            limpiarFormularioVenta();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar la venta: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnVenderActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        String codigoLibro = txtCodLib.getText().trim();
+        int cantidad;
+        double precioUnitario;
+
+        // Validar que los campos no estén vacíos
+        if (codigoLibro.isEmpty() || txtCantidad.getText().trim().isEmpty() || txtPrecio.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            cantidad = Integer.parseInt(txtCantidad.getText().trim());
+            precioUnitario = Double.parseDouble(txtPrecio.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Cantidad y precio deben ser valores numéricos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear un nuevo detalle de venta usando la clase DetVenta
+        DetVenta detalle = new DetVenta();
+        detalle.setIdDetVenta(UUID.randomUUID().toString().substring(0, 5));
+        detalle.setIdVenta(idVen);
+        detalle.setIdLibro(codigoLibro);
+        detalle.setCantDetVenta(cantidad);
+        detalle.setPrecioUnitDetVenta(precioUnitario);
+
+        // Añadirlo a la lista de detalles
+        listaDeDetalles.add(detalle);
+
+        // Actualizar la tabla
+        DefaultTableModel modelo = (DefaultTableModel) tblVenta.getModel();
+        modelo.addRow(new Object[]{codigoLibro, cantidad, precioUnitario, detalle.getCantDetVenta() * detalle.getPrecioUnitDetVenta()});
+
+        // Limpiar los campos
+        txtCodLib.setText("");
+        txtCantidad.setText("");
+        txtPrecio.setText(""); // Limpiar el precio
+    }//GEN-LAST:event_btnAddActionPerformed
+
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         try {
             LibroDAO ld = new LibroDAO();
@@ -315,22 +383,21 @@ public class caja_ventas extends javax.swing.JPanel {
             GeneroDAO gd = new GeneroDAO();
             AutorDAO ad = new AutorDAO();
             EditorialDAO ed = new EditorialDAO();
-            m.setRowCount(0); 
-            for(Libro libro: vl){
+            m.setRowCount(0);
+            for (Libro libro : vl) {
                 Idioma idioma = idd.obtenerPorId(libro.getIdIdioma());
                 Genero genero = gd.obtenerPorId(libro.getIdGen());
                 Autor autor = ad.obtenerPorId(libro.getIdAutor());
                 Editorial editorial = ed.obtenerPorId(libro.getIdEdito());
-                
+
                 Object[] data = {
                     libro.getIdLibro(),
                     libro.getTitulo(),
                     libro.getPrecio(),
-                    autor.getNomAutor()+" "+autor.getApeAutor(),
+                    autor.getNomAutor() + " " + autor.getApeAutor(),
                     editorial.getNomEdito(),
                     genero.getGenero(),
-                    idioma.getIdioma(),
-                };
+                    idioma.getIdioma(),};
                 m.addRow(data);
             }
         } catch (Exception e) {
@@ -339,44 +406,83 @@ public class caja_ventas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnListarActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddActionPerformed
+    private void calcularPrecio() {
+        String codigoLibro = txtCodLib.getText().trim();
+        String cantidadStr = txtCantidad.getText().trim();
 
-    private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVenderActionPerformed
+        // Validar que el código del libro y la cantidad no estén vacíos
+        if (codigoLibro.isEmpty() || cantidadStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese el código del libro y la cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    private void btnAddSinCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSinCliActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddSinCliActionPerformed
+        try {
 
-    private void btnVenderSinCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderSinCliActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVenderSinCliActionPerformed
+            // Obtener el precio del libro desde la base de datos
+            double precioUnitario = obtenerPrecioLibro(codigoLibro);
 
+            // Actualizar el campo de precio
+            txtPrecio.setText(String.valueOf(precioUnitario));
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "La cantidad debe ser un valor numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener el precio del libro: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private double obtenerPrecioLibro(String codigoLibro) throws SQLException {
+        // Lógica para obtener el precio del libro desde la base de datos usando el código del libro
+        // Aquí puedes hacer una consulta SQL para obtener el precio basado en el código
+        // Devolver el precio obtenido
+        LibroDAO ld = new LibroDAO();
+        Libro libro = ld.obtenerPorId(codigoLibro);
+        if (libro != null) {
+            return libro.getPrecio();
+        } else {
+            throw new SQLException("Libro no encontrado con el código proporcionado.");
+        }
+    }
+
+    private void mostrarResumenVenta(String idVenta) {
+        JPanel pnlCajero = (JPanel) this.getParent();
+        caja_resumenVentas resumen = new caja_resumenVentas(idVenta);
+        pnlCajero.add(resumen, "ResumenVenta");
+        CardLayout cardLayout = (CardLayout) pnlCajero.getLayout();
+        cardLayout.show(pnlCajero, "ResumenVenta");
+    }
+
+    private void limpiarFormularioVenta() {
+        // Limpiar los campos de texto y la tabla
+        txtDni.setText("");
+        txtPrecio.setText("");
+        txtCantidad.setText("");
+        txtCodLib.setText("");
+        idVen = UUID.randomUUID().toString().substring(0, 5);
+        listaDeDetalles.clear();
+        DefaultTableModel modelo = (DefaultTableModel) tblVenta.getModel();
+        modelo.setRowCount(0);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnAddSinCli;
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnVender;
-    private javax.swing.JButton btnVenderSinCli;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JLabel lblCantidad;
+    private javax.swing.JLabel lblPrecio;
     private javax.swing.JTabbedPane pnlCliente;
     private javax.swing.JPanel pnlListarLibros;
     private javax.swing.JPanel pnlRegistroVentaCli;
-    private javax.swing.JPanel pnlRegistroVentasSinCli;
     private javax.swing.JTable tblLibros;
+    private javax.swing.JTable tblVenta;
+    private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtCodLib;
     private javax.swing.JTextField txtDni;
-    private javax.swing.JTextField txtDni1;
-    private javax.swing.JTextField txtDni3;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
+
 }

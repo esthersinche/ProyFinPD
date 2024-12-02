@@ -101,6 +101,20 @@ public class DetVentaDAO implements ICrud_DAO<DetVenta> {
             throw e;
         }
     }
+    
+    public List<DetVenta> obtenerDetallesPorVenta(String idVenta) throws SQLException {
+        List<DetVenta> detalles = new ArrayList<>();
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_SALE_ID + " = ?";
+        try (Connection conn = SQLConexion.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, idVenta);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    detalles.add(mapearDetVenta(rs));
+                }
+            }
+        }
+        return detalles;
+    }
 
     // Método privado para mapear el ResultSet a un objeto DetVenta
     private DetVenta mapearDetVenta(ResultSet rs) throws SQLException {

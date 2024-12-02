@@ -1,5 +1,4 @@
 view\caja_ventas.class
-view\caja_ventas$5.class
 view\caja_Consultas.class
 view\admin_inventario$2.class
 Controler\CCliente.class
@@ -44,6 +43,7 @@ view\caja_clientes$1.class
 DAO\DetVentaDAO.class
 Model\Modalidad.class
 view\caja_Consultas$1.class
+view\caja_resumenVentas$2.class
 DAO\UsuarioDAO.class
 view\admin_libros$5.class
 view\Cajero$2.class
@@ -62,6 +62,7 @@ DAO\EmpleadoDAO.class
 view\admin_registrarusuario$4.class
 view\Cajero$1.class
 Model\Empleado.class
+view\caja_resumenVentas$1.class
 DAO\IdiomaDAO.class
 Model\Autor.class
 view\caja_clientes$2.class

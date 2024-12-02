@@ -8,6 +8,7 @@ import util.SQLConexion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,7 +16,7 @@ public class VentaDAO implements ICrud_DAO<Venta> {
 
     private static final Logger logger = Logger.getLogger(VentaDAO.class.getName());
     private static final String TABLE_VENTAS = "VENTAS";
-    private static final String TABLE_DET_VENTA = "DETALLE_VENTA";
+    private static final String TABLE_DET_VENTA = "DETALLE_VENTAS";
     private static final String COLUMN_ID_VENTA = "ID_VENTA";
     private static final String COLUMN_FECHA_VENTA = "FECHA_VENTA";
     private static final String COLUMN_ID_CLI = "ID_CLI";
@@ -33,6 +34,11 @@ public class VentaDAO implements ICrud_DAO<Venta> {
         try (Connection conn = SQLConexion.getConexion()) {
             conn.setAutoCommit(false);
 
+            String idVentaGenerado = UUID.randomUUID().toString().substring(0, 5);  // Generando un ID único
+
+            // Asignar el ID_VENTA a la venta
+            venta.setIdVenta(idVentaGenerado);
+
             try (PreparedStatement stmtVenta = conn.prepareStatement(sqlVenta); PreparedStatement stmtDetVenta = conn.prepareStatement(sqlDetVenta)) {
 
                 // Insertar Venta
@@ -44,6 +50,8 @@ public class VentaDAO implements ICrud_DAO<Venta> {
 
                 // Insertar Detalles de Venta
                 for (DetVenta detVenta : venta.getDetalles()) {
+                    detVenta.setIdVenta(idVentaGenerado); // Asociar el ID_VENTA generado
+                    detVenta.setIdDetVenta(UUID.randomUUID().toString().substring(0, 5)); // Generar ID único para el detalle
                     stmtDetVenta.setString(1, detVenta.getIdDetVenta());
                     stmtDetVenta.setString(2, detVenta.getIdVenta());
                     stmtDetVenta.setString(3, detVenta.getIdLibro());

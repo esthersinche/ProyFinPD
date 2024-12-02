@@ -16,12 +16,20 @@ public class SQLConexion {
 
     static {
         try {
-            // Configuración de la conexión
+            /*Configuración de la conexión : Esther <--------------------  */
+            config.setJdbcUrl("jdbc:sqlserver://localhost:1433;databaseName=BDLIBRERIA;encrypt=true;trustServerCertificate=true");
+            config.setUsername("sa"); // Usuario de la base de datos, laura: sa1, default: sa
+            //default: databaseName=BDLIBRERIA, laura: databaseName= PD2024PROY
+            config.setPassword("1234"); // Contraseña de la base de datos
+            
+            
+            /*Laura <---------------
             config.setJdbcUrl("jdbc:sqlserver://localhost:1433;databaseName=PD2024PROY;encrypt=true;trustServerCertificate=true");
             config.setUsername("sa1"); // Usuario de la base de datos, laura: sa1, default: sa
             //default: databaseName=BDLIBRERIA, laura: databaseName= PD2024PROY
             config.setPassword("1234"); // Contraseña de la base de datos
-
+            */
+            
             // Configuración del pool
             config.setMaximumPoolSize(10); // Máximo de conexiones activas
             config.setMinimumIdle(2); // Conexiones mínimas en espera
