@@ -5,12 +5,15 @@
 package View;
 
 import Controler.*;
+import DAO.LibroDAO;
 import DAO.UsuarioDAO;
 import Model.Usuario;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,6 +21,8 @@ import java.util.List;
  */
 public class admin_registrarusuario extends javax.swing.JPanel {
     DefaultTableModel a = new DefaultTableModel();
+    private static final Logger logger = Logger.getLogger(CUsuario.class.getName());
+
 
     /**
      * Creates new form admin_registrarusuario
@@ -27,10 +32,7 @@ public class admin_registrarusuario extends javax.swing.JPanel {
         
     }
     
-    public void largocabecera(){
-        
-        
-    }
+    
     
     
 
@@ -425,6 +427,8 @@ public class admin_registrarusuario extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Usuario ingresado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);                
             }catch(SQLException porfafunciona){
                 JOptionPane.showMessageDialog(this, "Error al ingresar el Usuario" + porfafunciona.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                logger.log(Level.SEVERE, "Error al agregar los datos del inventario", porfafunciona); // Loguear el error para depuración
+
                 porfafunciona.printStackTrace();
             }
             }else{
@@ -461,6 +465,8 @@ public class admin_registrarusuario extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Usuario actualizado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);
             }catch(SQLException deviltrigger){
                 JOptionPane.showMessageDialog(this, "Error al actualizar el Usuario" + deviltrigger.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                logger.log(Level.SEVERE, "Error al actualizar los datos del inventario", deviltrigger); // Loguear el error para depuración
+
                 deviltrigger.printStackTrace();                
             }       
             }else{
@@ -509,6 +515,7 @@ public class admin_registrarusuario extends javax.swing.JPanel {
                               
             }catch(SQLException papermoon){
                 JOptionPane.showMessageDialog(this, "Problemas con la BD" + papermoon.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+                logger.log(Level.SEVERE, "Error al obtener los datos del inventario", papermoon); // Loguear el error para depuración
                 papermoon.printStackTrace(); 
                 TXTadminbuscaridusu.setText("");                
             }
@@ -535,6 +542,8 @@ public class admin_registrarusuario extends javax.swing.JPanel {
                        
         }catch(SQLException laragedupeuple){
             JOptionPane.showMessageDialog(this, "No se pudo eliminar el Usuario" + laragedupeuple.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Error al eliminar los datos del inventario", laragedupeuple); // Loguear el error para depuración
+
             laragedupeuple.printStackTrace(); 
         }
         
