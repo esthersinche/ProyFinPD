@@ -10,6 +10,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class admin_inventario extends javax.swing.JPanel {
     DefaultTableModel m = new DefaultTableModel();
+    private static final Logger logger = Logger.getLogger(InventarioDAO.class.getName());
 
     /**
      * Creates new form admin_inventario
@@ -486,11 +489,15 @@ public class admin_inventario extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Stock actuaizado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);              
             }catch(SQLException borro){
                 JOptionPane.showMessageDialog(this, "Error al actualizar el Stock" + borro.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                logger.log(Level.SEVERE, "Error al actualizar los datos del inventario", borro); // Loguear el error para depuración
+
                 borro.printStackTrace();                 
             }           
         }else{
             JOptionPane.showMessageDialog(this, "Rellenar todos los campos", "Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
+            
         }
+        
         
         
     }//GEN-LAST:event_BTNadminactustockactuActionPerformed
@@ -514,6 +521,7 @@ public class admin_inventario extends javax.swing.JPanel {
                 
             }catch(SQLException ame){
                 JOptionPane.showMessageDialog(this, "Error al ingresar el Inventario" + ame.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                logger.log(Level.SEVERE, "Error al agregar los datos del inventario", ame); // Loguear el error para depuración
                 ame.printStackTrace();                
             }           
         }else{
@@ -564,6 +572,7 @@ public class admin_inventario extends javax.swing.JPanel {
             }         
         }catch(SQLException saviorofsong){
             JOptionPane.showMessageDialog(this, "Problemas con la BD" + saviorofsong.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Error al obtener los datos del inventario", saviorofsong); // Loguear el error para depuración
             saviorofsong.printStackTrace();             
         }
         TXTadminbuscstockidlib.setText("");
@@ -587,6 +596,7 @@ public class admin_inventario extends javax.swing.JPanel {
             }             
         }catch(SQLException nopuedeser){
             JOptionPane.showMessageDialog(this, "No se pudo eliminar el Stock debido a problemas con la BD" + nopuedeser.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Error al eliminar los datos del inventario", nopuedeser); // Loguear el error para depuración
             nopuedeser.printStackTrace();            
         }
         TXTadminbuscstockidlib.setText("");

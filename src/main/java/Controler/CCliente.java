@@ -4,6 +4,7 @@ import DAO.NacionalidadDAO;
 import Model.Cliente;
 
 import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -46,6 +47,11 @@ public class CCliente {
     public Cliente obtenerClientePorDni(int dni) throws SQLException {
         return clienteDAO.buscarPorDni(dni);
     }
+
+//    public Cliente registrarCliente(Cliente cliente) throws SQLException {
+//        clienteDAO.guardar(cliente);
+//        return cliente;
+//    }
 
     
 
