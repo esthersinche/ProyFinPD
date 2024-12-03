@@ -15,6 +15,7 @@ DAO\SueldoDAO.class
 view\Cajero$4.class
 view\Admin$4.class
 view\admin_inventario$5.class
+view\Admin$5.class
 view\admin_inventario$6.class
 Controler\CUsuario.class
 Model\Usuario.class
@@ -79,4 +80,5 @@ DAO\InventarioDAO.class
 Model\Editorial.class
 Model\Idioma.class
 view\Admin$3.class
+view\Cajero$5.class
 view\admin_inventario$1.class

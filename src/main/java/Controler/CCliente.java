@@ -47,11 +47,6 @@ public class CCliente {
         return clienteDAO.buscarPorDni(dni);
     }
 
-    public Cliente registrarCliente(Cliente cliente) throws SQLException {
-        clienteDAO.guardar(cliente);
-        return cliente;
-    }
-
     
 
     

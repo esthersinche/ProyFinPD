@@ -1,0 +1,7 @@
+ID Venta: d1f6c   
+Fecha: 2024-12-02
+Cliente: 000000
+Total: 145.0
+Detalles:
+	ID Detalle: 3875b       , ID Libro: LIB_03, Cantidad: 1.0, Precio Unitario: 45.0, Subtotal: 45.0
+	ID Detalle: 64904       , ID Libro: LIB_02, Cantidad: 2.0, Precio Unitario: 50.0, Subtotal: 100.0
