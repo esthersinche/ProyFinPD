@@ -4,12 +4,15 @@
  */
 package View;
 
+
 import DAO.*;
 import Model.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class admin_libros extends javax.swing.JPanel {
     DefaultTableModel m = new DefaultTableModel();
+    private static final Logger logger = Logger.getLogger(LibroDAO.class.getName());
 
     /**
      * Creates new form admin_libros
@@ -50,7 +54,7 @@ public class admin_libros extends javax.swing.JPanel {
                 }
                 
            }catch(SQLException intentalo){//problemas con la base de datos
-               JOptionPane.showMessageDialog(null, "Error al buscar el Libro" + intentalo.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                JOptionPane.showMessageDialog(null, "Error al buscar el Libro" + intentalo.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
                 intentalo.printStackTrace(); 
                 
             }
@@ -563,6 +567,7 @@ public class admin_libros extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Libro ingresado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);                                                            
             }catch(SQLException goliat){//problemas con la BD
                 JOptionPane.showMessageDialog(this, "Error al ingresar el Libro" + goliat.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                logger.log(Level.SEVERE, "Error al ingresar los datos del inventario", goliat); // Loguear el error para depuración
                 goliat.printStackTrace();           
             }            
             }else{
@@ -604,6 +609,7 @@ public class admin_libros extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Libro actuaizado con éxito", "Felicidades Shinji", JOptionPane.INFORMATION_MESSAGE);                                                                     
             }catch(SQLException ahri){
                 JOptionPane.showMessageDialog(this, "Error al actualizar el Libro" + ahri.getMessage(), "Fue", JOptionPane.ERROR_MESSAGE); 
+                logger.log(Level.SEVERE, "Error al actualizar los datos del inventario", ahri); // Loguear el error para depuración
                 ahri.printStackTrace(); 
             }
         }else{
@@ -658,6 +664,7 @@ public class admin_libros extends javax.swing.JPanel {
             }
         }catch(SQLException besosalaire){
             JOptionPane.showMessageDialog(this, "Problemas con la BD" + besosalaire.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Error al obtener los datos del inventario", besosalaire); // Loguear el error para depuración
             besosalaire.printStackTrace(); 
         }
         TXTadminbuscarlibidlib.setText(""); 
@@ -680,6 +687,8 @@ public class admin_libros extends javax.swing.JPanel {
             }         
         }catch(SQLException blueheart){
             JOptionPane.showMessageDialog(this, "No se pudo eliminar el Libro debido a problemas con la BD" + blueheart.getMessage(), "Por favor no", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Error al eliminar los datos del inventario", blueheart); // Loguear el error para depuración
+
             blueheart.printStackTrace();            
         }
         TXTadminbuscarlibidlib.setText("");                
