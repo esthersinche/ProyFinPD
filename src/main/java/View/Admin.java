@@ -50,6 +50,7 @@ public class Admin extends javax.swing.JFrame {
         BTNadminlib = new javax.swing.JButton();
         BTNadminstock = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -93,6 +94,14 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
+        btnLogout.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        btnLogout.setText("Cerrar Sesion");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -104,6 +113,10 @@ public class Admin extends javax.swing.JFrame {
                 .addGap(64, 64, 64)
                 .addComponent(jLabel4)
                 .addContainerGap(126, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addGap(17, 17, 17))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +129,9 @@ public class Admin extends javax.swing.JFrame {
                 .addComponent(BTNadminlib, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BTNadminstock, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addGap(21, 21, 21))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 510));
@@ -195,6 +210,12 @@ public class Admin extends javax.swing.JFrame {
         cardlayout.show(viewpaneladmin, "Operaciones Admin Stock");
     }//GEN-LAST:event_BTNadminstockActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -234,6 +255,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton BTNadminlib;
     private javax.swing.JButton BTNadminstock;
     private javax.swing.JButton BTNadminusu;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

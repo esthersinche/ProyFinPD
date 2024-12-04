@@ -43,6 +43,7 @@ public class Cajero extends javax.swing.JFrame {
         BTNcajerovend = new javax.swing.JButton();
         BTNcajerocli = new javax.swing.JButton();
         BTNcajeroconsul = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -84,6 +85,14 @@ public class Cajero extends javax.swing.JFrame {
             }
         });
 
+        btnLogout.setFont(new java.awt.Font("Eras Bold ITC", 0, 18)); // NOI18N
+        btnLogout.setText("Cerrar Sesion");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -94,6 +103,10 @@ public class Cajero extends javax.swing.JFrame {
                     .addComponent(BTNcajerocli, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BTNcajeroconsul, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(btnLogout)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +117,9 @@ public class Cajero extends javax.swing.JFrame {
                 .addComponent(BTNcajerocli, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BTNcajeroconsul, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addGap(24, 24, 24))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 620));
@@ -179,6 +194,12 @@ public class Cajero extends javax.swing.JFrame {
         cardLayout.show(pnlCajero, "Ventas");
     }//GEN-LAST:event_BTNcajerovendActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -218,6 +239,7 @@ public class Cajero extends javax.swing.JFrame {
     private javax.swing.JButton BTNcajerocli;
     private javax.swing.JButton BTNcajeroconsul;
     private javax.swing.JButton BTNcajerovend;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
